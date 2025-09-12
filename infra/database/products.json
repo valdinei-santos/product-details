@@ -1,0 +1,20 @@
+[
+  {
+    "id": 2,
+    "nome": "produto 22",
+    "url": "http://produto.com/imagem22.jpg",
+    "descricao": "Produto 22",
+    "preco": 18.8,
+    "classificacao": "eletronicos",
+    "especificacao": "abc"
+  },
+  {
+    "id": 1,
+    "nome": "produto 1",
+    "url": "http://produto.com/imagem1.jpg",
+    "descricao": "Produto 1",
+    "preco": 19.9,
+    "classificacao": "eletronicos",
+    "especificacao": "xyz"
+  }
+]

@@ -1,0 +1,64 @@
+### Variables
+@URL = http://localhost:8888
+@APIURL = {{URL}}/api/products
+
+### ping da API
+GET {{URL}}/ping
+
+### Get produto por ID
+GET {{APIURL}}/3
+Accept: application/json
+
+### Get todos os produtos
+GET {{APIURL}}/
+Accept: application/json
+
+### Get todos os produtos com paginação
+GET {{APIURL}}/?page=1&limit=2
+Accept: application/json
+
+### Adicionar um produto
+POST {{APIURL}}/
+Content-Type: application/json
+
+{
+    "id": 1,
+    "nome": "produto 1",
+    "url": "http://produto.com/imagem1.jpg",
+    "descricao": "Produto 1",
+    "preco": 19.90,
+    "classificacao": "Eletrônicos",
+    "especificacao": "Este produto possui as seguintes especificações técnicas: abc"
+}
+
+### Adicionar um produto
+POST {{APIURL}}/
+Content-Type: application/json
+
+{
+    "id": 2,
+    "nome": "produto 2",
+    "url": "http://produto.com/imagem2.jpg",
+    "descricao": "Produto 2",
+    "preco": 18.80,
+    "classificacao": "Eletrônicos",
+    "especificacao": "Este produto possui as seguintes especificações técnicas: xyz"
+}
+
+### Deleta um produto
+DELETE {{APIURL}}/1
+Content-Type: application/json
+
+### Adicionar um produto
+PUT {{APIURL}}/2
+Content-Type: application/json
+
+{
+    "id": 2,
+    "nome": "produto 22",
+    "url": "http://produto.com/imagem22.jpg",
+    "descricao": "Produto 22",
+    "preco": 18.80,
+    "classificacao": "eletronicos",
+    "especificacao": "abc"
+}
