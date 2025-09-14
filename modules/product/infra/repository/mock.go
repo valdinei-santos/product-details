@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/google/uuid"
@@ -31,6 +32,10 @@ func (m *MockProductRepository) SetMockError(err error) {
 
 // GetProductByID - mock do método GetProductByID
 func (m *MockProductRepository) GetProductByID(id string) (*entities.Product, error) {
+	if m.mockError != nil {
+		return nil, m.mockError
+	}
+
 	idUUID, err := uuid.Parse(id)
 	if err != nil {
 		return nil, fmt.Errorf("ID inválido: %w", err)
@@ -40,7 +45,7 @@ func (m *MockProductRepository) GetProductByID(id string) (*entities.Product, er
 			return &product, nil
 		}
 	}
-	return nil, nil
+	return nil, errors.New("produto não encontrado")
 }
 
 // GetManyProductByIDs - busca vários produtos por ID
@@ -65,12 +70,16 @@ func (m *MockProductRepository) GetManyProductByIDs(ids []string) ([]*entities.P
 }
 
 // GetAllProducts - mock do método GetAllProducts
-func (m *MockProductRepository) GetAllProducts(offset int, limit int) ([]*entities.Product, int) {
+func (m *MockProductRepository) GetAllProducts(offset int, limit int) ([]*entities.Product, int, error) {
+	if m.mockError != nil {
+		return nil, 0, m.mockError
+	}
+
 	total := len(m.Products)
 
 	// Aplica o offset e o limit para simular paginação
 	if offset > total {
-		return []*entities.Product{}, total
+		return []*entities.Product{}, total, nil
 	}
 
 	end := offset + limit
@@ -84,7 +93,7 @@ func (m *MockProductRepository) GetAllProducts(offset int, limit int) ([]*entiti
 		products = append(products, &m.Products[i])
 	}
 
-	return products, total
+	return products, total, nil
 }
 
 // AddProduct - mock do método AddProduct
@@ -104,6 +113,10 @@ func (m *MockProductRepository) AddProduct(p *entities.Product) error {
 
 // UpdateProduct - mock do método UpdateProduct
 func (m *MockProductRepository) UpdateProduct(id string, p *entities.Product) error {
+	if m.mockError != nil {
+		return m.mockError
+	}
+
 	idUUID, err := uuid.Parse(id)
 	if err != nil {
 		return fmt.Errorf("ID inválido: %w", err)
@@ -121,6 +134,10 @@ func (m *MockProductRepository) UpdateProduct(id string, p *entities.Product) er
 
 // DeleteProduct - mock do método DeleteProduct
 func (m *MockProductRepository) DeleteProduct(id string) error {
+	if m.mockError != nil {
+		return m.mockError
+	}
+
 	idUUID, err := uuid.Parse(id)
 	if err != nil {
 		return fmt.Errorf("ID inválido: %w", err)

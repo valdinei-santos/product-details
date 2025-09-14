@@ -4,6 +4,7 @@
 
 A API **product-details** foi criada com o intuito de demonstrarmos uma simples implementação de API Rest usando os conceitos de Arquitetura Limpa e DDD com Golang.
 Para facilitar os testes o repositório usado é um arquivo em JSON, podendo outros tipos de repositórios serem adicionados posteriormente de forma totalmente desacoplada.
+Na inicialização da API 5 produtos são criados por uma função Fake, para facilitar os testes.
 
 ## Instruções para Rodar o Programa
 
@@ -49,14 +50,14 @@ Para facilitar os testes o repositório usado é um arquivo em JSON, podendo out
    Iniciou Log...
    Iniciou Database...
    Gerando produtos fake caso tenha menos que 5 produtos...
-   {"time":"2025-09-12T06:19:08.180555078-03:00","level":"INFO","msg":"start product-details","PORT:":"8888"}
+   {"time":"2025-09-14T00:54:33.731833513-03:00","level":"INFO","msg":"start product-details","PORT:":"8888"}
    ```
 
 ## Instruções para Rodar os Testes
 
 ### Passos
 
-1. Navegue até o diretório do projeto:
+1. Navegue até o diretório do projeto. Caso a API esteja rodando você precisa parar ela com CTRL+C.:
    ```bash
    cd product-details
    ```
@@ -68,27 +69,62 @@ Para facilitar os testes o repositório usado é um arquivo em JSON, podendo out
 
    Exemplo de saída:
    ```bash
-   
+   go test ./...
+   ?       github.com/valdinei-santos/product-details/cmd/api      [no test files]
+   ok      github.com/valdinei-santos/product-details/cmd/api/routes       (cached)
+   ?       github.com/valdinei-santos/product-details/infra/config [no test files]
+   ?       github.com/valdinei-santos/product-details/infra/database/datafake      [no test files]
+   ?       github.com/valdinei-santos/product-details/infra/logger [no test files]
+   ?       github.com/valdinei-santos/product-details/modules/product      [no test files]
+   ?       github.com/valdinei-santos/product-details/modules/product/domain/entities      [no test files]
+   ?       github.com/valdinei-santos/product-details/modules/product/domain/vo    [no test files]
+   ?       github.com/valdinei-santos/product-details/modules/product/dto  [no test files]
+   ?       github.com/valdinei-santos/product-details/modules/product/infra/controller     [no test files]
+   ?       github.com/valdinei-santos/product-details/modules/product/infra/repository     [no test files]
+   ok      github.com/valdinei-santos/product-details/modules/product/usecases/compare     (cached)
+   ok      github.com/valdinei-santos/product-details/modules/product/usecases/create      (cached)
+   ok      github.com/valdinei-santos/product-details/modules/product/usecases/delete      (cached)
+   ok      github.com/valdinei-santos/product-details/modules/product/usecases/get (cached)
+   ok      github.com/valdinei-santos/product-details/modules/product/usecases/get-all     (cached)
+   ok      github.com/valdinei-santos/product-details/modules/product/usecases/update      (cached)
    ```
 
-3. Para rodar um teste específico, use o comando **go test**, conforme abaixo:
+3. Para rodar um arquivo de teste específico, use o comando **go test**, conforme abaixo:
    ```bash
-   go test -run TestNomeDoTeste ./caminho/do/pacote
+   go test caminho/do/arquivo_test.go
+   
+   Exemplo:
+   go test modules/product/usecases/delete/usecase_test.go
    ```
 
-4. Para ver a cobertura dos testes na aplicação:
+4. Para rodar um caso de teste específico, use o comando **go test -run "nome-do-caso-de-teste"**, conforme abaixo:
+   ```bash
+   go test -run "Deve retornar sucesso ao excluir um produto" modules/product/usecases/delete/usecase_test.g
+   ```
+   Exemplo:
+   ```bash
+   go test modules/product/usecases/delete/usecase_test.go
+   ```
+
+
+
+
+5. Para ver a cobertura dos testes na aplicação:
    ```bash
    make cover
    ``` 
 
 
 ### Estrutura de Testes
-O projeto inclui testes automatizados para os seguintes componentes:
+O projeto inclui testes automatizados para os seguintes pacotes:
 
-- **abc**: Valida os argumentos de entrada.
-- **abc2**: Testa 
-- **abc3**: Testa 
-- **main**: Testa o fluxo completo do programa, incluindo cenários de sucesso e falha.
+- **cmd/api/routes**: Faz os testes de integração de todos os endpoints.
+- **modules/product/usecases/compare**: Faz testes de unidade do usecase **compare** 
+- **modules/product/usecases/create**: Faz testes de unidade do usecase **create**
+- **modules/product/usecases/delete**: Faz testes de unidade do usecase **delete**
+- **modules/product/usecases/get**: Faz testes de unidade do usecase **get**
+- **modules/product/usecases/getall**: Faz testes de unidade do usecase **getall**
+- **modules/product/usecases/update**: Faz testes de unidade do usecase **update**
 
 
 ## Detalhes de Implementação
@@ -100,14 +136,14 @@ O projeto inclui testes automatizados para os seguintes componentes:
 - **infra**: Pasta com os pacotes da camada de infraestrutura usados no contexto geral da API (config, database e log).
 - **modules**: Pasta com todos os recursos da API, que nesse caso é apenas **product**.
 - **modules/product**: Pasta principal do recurso **product**.
-- **modules/product/domain**: Pasta da camada dominio da Clean Arch.
+- **modules/product/domain**: Pasta da camada de dominio (Clean Arch) do recurso.
 - **modules/product/domain/entities**: Pasta com o pacote das entidades do recurso.
 - **modules/product/domain/vo**: Pasta com o pacote dos Value Objects definidos.
 - **modules/product/dto**: Pasta com o pacote de DTOs definidos para o recurso.
-- **modules/product/infra**: Pasta com os pacotes da camada de infraestrutura usados pelo recurso (repository e controller).
+- **modules/product/infra**: Pasta com os pacotes da camada de infraestrutura (Clean Arch) usados pelo recurso (repository e controller).
 - **modules/product/infra/controller**: Pasta com o pacote controller do recurso.
 - **modules/product/infra/repository**: Pasta com o pacote repository do recurso.
-- **modules/product/usecases**: Pasta com os pacotes da camada UseCase do recurso.
+- **modules/product/usecases**: Pasta com os pacotes da camada UseCase (Clean Arch) do recurso.
 - **modules/product/usecases/create**: Pasta com o pacote **create**.
 - **modules/product/usecases/delete**: Pasta com o pacote **delete**.
 - **modules/product/usecases/get**: Pasta com o pacote **get**.
@@ -116,7 +152,7 @@ O projeto inclui testes automatizados para os seguintes componentes:
 
 <h3>Fluxo de Execução do endpoint GET /api/products/{id} <span style="font-size: 0.7em;">(Os demais endpoints seguem a mesma lógica de execução)</span></h3>
 
-Considere que a API está em execução na porta **8888 (http://localhost:8888/api/products/1)**
+Considere que a API está em execução na porta **8888 (http://localhost:8888/api/products/034ab7b3-90ea-11f0-95f2-00155d6d5ec0)**
 1. A requisição **GET** chega ao endpoint **/api/products/{id}**. A rota é processada pelo pacote **routes**.
 2. O pacote **routes** aciona a função **StartGet**, passando as dependências de **log**, **contexto do Gin** e **repository**.
 3. Dentro da função **StartGet** (no pacote **products**), uma instância do **UseCase** é criada com as dependências de **log** e **repository**. Em seguida, a função **Get** do **controller** é chamada, recebendo o **log**, o **contexto do Gin** e o **UseCase** como dependências.

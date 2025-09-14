@@ -47,13 +47,13 @@ func (m *MockILogger) Error(msg string, args ...any) {
 
 // With mocks the With method, returning the same logger for simplicity
 func (m *MockILogger) With(args ...any) ILogger {
-	m.log("WITH", "Adding context", args...)
+	m.log("WITH", "Adding context %v", args)
 	return m
 }
 
 // WithContext mocks the WithContext method, returning the same logger for simplicity
 func (m *MockILogger) WithContext(ctx context.Context) ILogger {
-	m.log("WITH_CONTEXT", "Adding context with context.Context", ctx)
+	m.log("WITH_CONTEXT", "Adding context with context.Context %v", ctx)
 	return m
 }
 

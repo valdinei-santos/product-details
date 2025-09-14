@@ -12,9 +12,6 @@ import (
 )
 
 func TestExecute(t *testing.T) {
-	mockRepo := repository.NewMockProductRepository()
-	mockLogger := logger.NewMockILogger()
-
 	// Tabela de teste para cenários
 	tests := []struct {
 		name         string
@@ -59,11 +56,11 @@ func TestExecute(t *testing.T) {
 		{
 			name: "Deve retornar error quando repositório falha",
 			repo: func() *repository.MockProductRepository {
-				r := mockRepo
+				r := repository.NewMockProductRepository()
 				r.SetMockError(errors.New("erro ao salvar no banco"))
 				return r
 			}(),
-			logger: mockLogger,
+			logger: logger.NewMockILogger(),
 			input: &dto.Request{
 				Nome:          "Produto Teste 2",
 				URL:           "http://teste.com/img2.jpg",

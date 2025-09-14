@@ -100,21 +100,21 @@ func (r *ProductRepo) GetManyProductByIDs(ids []string) ([]*entities.Product, er
 }
 
 // GetAllProducts - retorna todos os produtos
-func (r *ProductRepo) GetAllProducts(offset int, limit int) ([]*entities.Product, int) {
+func (r *ProductRepo) GetAllProducts(offset int, limit int) ([]*entities.Product, int, error) {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
 	// Garante que o offset e o limit não extrapolem o tamanho do array
 	total := len(r.products)
 	if offset >= total {
-		return []*entities.Product{}, total
+		return []*entities.Product{}, total, nil
 	}
 	end := offset + limit
 	if end > total {
 		end = total
 	}
 
-	return r.products[offset:end], total
+	return r.products[offset:end], total, nil
 }
 
 // UpdateProduct - atualiza os dados de um produto existente

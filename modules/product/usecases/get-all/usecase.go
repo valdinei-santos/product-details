@@ -30,7 +30,11 @@ func (u *UseCase) Execute(page int, size int) (*dto.ProductsPaginatedResponse, e
 	offset := (page - 1) * size
 
 	// Busca o subconjunto de produtos e o total de itens
-	paginatedProducts, totalItems := u.repo.GetAllProducts(offset, size)
+	paginatedProducts, totalItems, err := u.repo.GetAllProducts(offset, size)
+	if err != nil {
+		u.log.Error("Erro ao buscar produtos: ", err)
+		return nil, err
+	}
 
 	// Converte as entidades para DTOs
 	productsList := make([]dto.Response, len(paginatedProducts))

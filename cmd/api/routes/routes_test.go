@@ -17,6 +17,7 @@ func TestInitRoutes(t *testing.T) {
 	// Mocks
 	mockILogger := logger.NewMockILogger()
 	mockRepo := repository.NewMockProductRepository()
+	validID := mockRepo.Products[0].ID.String()
 
 	// Cria um novo Gin engine e grupo de roteamento
 	gin.SetMode(gin.TestMode)
@@ -36,9 +37,9 @@ func TestInitRoutes(t *testing.T) {
 		{"Ping Route", "GET", "/ping", http.StatusOK},
 		{"Get All Products", "GET", "/api/products/", http.StatusOK},
 		{"Create Product", "POST", "/api/products/", http.StatusOK},
-		{"Get Product by ID", "GET", "/api/products/1", http.StatusOK},
-		{"Update Product by ID", "PUT", "/api/products/1", http.StatusOK},
-		{"Delete Product by ID", "DELETE", "/api/products/1", http.StatusOK},
+		{"Get Product by ID", "GET", "/api/products/" + validID, http.StatusOK},
+		{"Update Product by ID", "PUT", "/api/products/" + validID, http.StatusOK},
+		{"Delete Product by ID", "DELETE", "/api/products/" + validID, http.StatusOK},
 	}
 
 	// Executa o casos de teste
@@ -52,13 +53,12 @@ func TestInitRoutes(t *testing.T) {
 			if tc.method == "POST" || tc.method == "PUT" {
 				//body = `{"name": "Test Product", "price": 10.0}`
 				body = `{
-					"ID": 1, 
-				    "Nome": "Default Product1", 
+					"Nome": "Default Product1", 
 					"URL": "http://empresa.com/imagem1", 
 					"Descricao": "Produto de Teste1", 
 					"Preco": 1.0, 
 					"Classificacao": "Eletronicos", 
-					"Especificacao": "Teste"
+					"Especificacao": "Teste de Especificacao"
 				}`
 			}
 
