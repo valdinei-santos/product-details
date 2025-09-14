@@ -1,6 +1,6 @@
 ### Variables
 @URL = http://localhost:8888
-@APIURL = {{URL}}/api/products
+@APIURL = {{URL}}/api/v1/products
 
 ### ping da API
 GET {{URL}}/ping

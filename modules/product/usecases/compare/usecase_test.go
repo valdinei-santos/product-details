@@ -1,4 +1,4 @@
-package compare
+package compare_test
 
 import (
 	"errors"
@@ -9,6 +9,7 @@ import (
 	"github.com/valdinei-santos/product-details/infra/logger"
 	"github.com/valdinei-santos/product-details/modules/product/dto"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
+	"github.com/valdinei-santos/product-details/modules/product/usecases/compare"
 )
 
 func TestExecute(t *testing.T) {
@@ -74,7 +75,7 @@ func TestExecute(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			// Prepara o UseCase com os mocks
-			uc := NewUseCase(tt.repo, tt.logger)
+			uc := compare.NewUseCase(tt.repo, tt.logger)
 
 			// Executa a função e verifica os resultados
 			resp, err := uc.Execute(tt.inputIDs)

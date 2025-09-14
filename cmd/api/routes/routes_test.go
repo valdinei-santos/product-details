@@ -17,7 +17,8 @@ func TestInitRoutes(t *testing.T) {
 	// Mocks
 	mockILogger := logger.NewMockILogger()
 	mockRepo := repository.NewMockProductRepository()
-	validID := mockRepo.Products[0].ID.String()
+	validID1 := mockRepo.Products[0].ID.String()
+	validID2 := mockRepo.Products[1].ID.String()
 
 	// Cria um novo Gin engine e grupo de roteamento
 	gin.SetMode(gin.TestMode)
@@ -34,12 +35,13 @@ func TestInitRoutes(t *testing.T) {
 		url        string
 		statusCode int
 	}{
-		{"Ping Route", "GET", "/ping", http.StatusOK},
-		{"Get All Products", "GET", "/api/products/", http.StatusOK},
-		{"Create Product", "POST", "/api/products/", http.StatusOK},
-		{"Get Product by ID", "GET", "/api/products/" + validID, http.StatusOK},
-		{"Update Product by ID", "PUT", "/api/products/" + validID, http.StatusOK},
-		{"Delete Product by ID", "DELETE", "/api/products/" + validID, http.StatusOK},
+		{"Teste Ping", "GET", "/ping", http.StatusOK},
+		{"Rota GetAllProducts", "GET", "/api/v1/products/", http.StatusOK},
+		{"Rota CreateProduct", "POST", "/api/v1/products/", http.StatusOK},
+		{"Rota GetProductByID", "GET", "/api/v1/products/" + validID1, http.StatusOK},
+		{"Rota UpdateProductByID", "PUT", "/api/v1/products/" + validID1, http.StatusOK},
+		{"Rota DeleteProductByID", "DELETE", "/api/v1/products/" + validID1, http.StatusOK},
+		{"Rota CompareProductByIDs", "GET", "/api/v1/products/compare?ids=" + validID1 + "," + validID2, http.StatusOK},
 	}
 
 	// Executa o casos de teste

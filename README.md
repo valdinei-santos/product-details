@@ -53,6 +53,11 @@ Na inicialização da API 5 produtos são criados por uma função Fake, para fa
    {"time":"2025-09-14T00:54:33.731833513-03:00","level":"INFO","msg":"start product-details","PORT:":"8888"}
    ```
 
+## Documentação da API
+
+http://localhost:8888/swagger/index.html
+
+
 ## Instruções para Rodar os Testes
 
 ### Passos

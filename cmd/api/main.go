@@ -14,6 +14,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @title Product Details API
+// @version 1.0
+// @description Esta é a API para gerenciar detalhes de produtos.
+// @host localhost:8888
+// @BasePath /api/v1
 func main() {
 	fmt.Println("Iniciando...")
 	config, err := config.LoadConfig()

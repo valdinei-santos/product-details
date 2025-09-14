@@ -1,0 +1,9 @@
+basePath: /api/v1
+host: localhost:8888
+info:
+  contact: {}
+  description: Esta é a API para gerenciar detalhes de produtos.
+  title: Product Details API
+  version: "1.0"
+paths: {}
+swagger: "2.0"
