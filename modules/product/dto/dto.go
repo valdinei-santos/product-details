@@ -2,7 +2,7 @@ package dto
 
 // ProductDTO - Representa a estrutura de um produto
 type ProductDTO struct {
-	ID            int     `json:"id"`
+	ID            string  `json:"id"`
 	Nome          string  `json:"nome"`
 	URL           string  `json:"url"`
 	Descricao     string  `json:"descricao"`
@@ -13,7 +13,7 @@ type ProductDTO struct {
 
 // Request - Representa os dados necessários para criar ou atualizar um produto
 type Request struct {
-	ID            int     `json:"id"`
+	ID            string  `json:"id"`
 	Nome          string  `json:"nome"`
 	URL           string  `json:"url"`
 	Descricao     string  `json:"descricao"`
@@ -24,7 +24,7 @@ type Request struct {
 
 // Response - Representa a resposta de um produto único
 type Response struct {
-	ID            int     `json:"id"`
+	ID            string  `json:"id"`
 	Nome          string  `json:"nome"`
 	URL           string  `json:"url"`
 	Descricao     string  `json:"descricao"`

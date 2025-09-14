@@ -1,20 +1,47 @@
 [
   {
-    "id": 2,
-    "nome": "produto 22",
-    "url": "http://produto.com/imagem22.jpg",
-    "descricao": "Produto 22",
-    "preco": 18.8,
-    "classificacao": "eletronicos",
-    "especificacao": "abc"
+    "ID": "034ab7b3-90ea-11f0-95f2-00155d6d5ec0",
+    "Nome": "Notebook",
+    "URL": "http://produto.com/imagem1.jpg",
+    "Descricao": "Produto de alta qualidade",
+    "Preco": 207.48,
+    "Classificacao": "eletronicos",
+    "Especificacao": "COD-3969480"
   },
   {
-    "id": 1,
-    "nome": "produto 1",
-    "url": "http://produto.com/imagem1.jpg",
-    "descricao": "Produto 1",
-    "preco": 19.9,
-    "classificacao": "eletronicos",
-    "especificacao": "xyz"
+    "ID": "034aeff8-90ea-11f0-95f2-00155d6d5ec0",
+    "Nome": "Smart TV",
+    "URL": "http://produto.com/imagem2.jpg",
+    "Descricao": "Excelente desempenho",
+    "Preco": 402.2,
+    "Classificacao": "acessorios",
+    "Especificacao": "COD-1966598"
+  },
+  {
+    "ID": "034afa35-90ea-11f0-95f2-00155d6d5ec0",
+    "Nome": "Tablet",
+    "URL": "http://produto.com/imagem3.jpg",
+    "Descricao": "Ideal para o dia a dia",
+    "Preco": 436.5,
+    "Classificacao": "informatica",
+    "Especificacao": "COD-5706276"
+  },
+  {
+    "ID": "034b11f9-90ea-11f0-95f2-00155d6d5ec0",
+    "Nome": "Fone de Ouvido",
+    "URL": "http://produto.com/imagem4.jpg",
+    "Descricao": "Design moderno e elegante",
+    "Preco": 903.93,
+    "Classificacao": "eletrodomesticos",
+    "Especificacao": "COD-2070901"
+  },
+  {
+    "ID": "034b2a6a-90ea-11f0-95f2-00155d6d5ec0",
+    "Nome": "Fone de Ouvido",
+    "URL": "http://produto.com/imagem5.jpg",
+    "Descricao": "Excelente desempenho",
+    "Preco": 314.76,
+    "Classificacao": "eletronicos",
+    "Especificacao": "COD-3434311"
   }
 ]

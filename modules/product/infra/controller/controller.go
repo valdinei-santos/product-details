@@ -2,12 +2,15 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/valdinei-santos/product-details/infra/logger"
 	"github.com/valdinei-santos/product-details/modules/product/dto"
+	"github.com/valdinei-santos/product-details/modules/product/usecases/compare"
 	"github.com/valdinei-santos/product-details/modules/product/usecases/create"
 	"github.com/valdinei-santos/product-details/modules/product/usecases/delete"
 	"github.com/valdinei-santos/product-details/modules/product/usecases/get"
@@ -16,7 +19,7 @@ import (
 )
 
 // Create - Controlador para criar um produto
-func Create(log logger.Logger, ctx *gin.Context, useCase create.IUsecase) {
+func Create(log logger.ILogger, ctx *gin.Context, useCase create.IUsecase) {
 	log.Debug("Entrou controller.Get")
 	var input *dto.Request
 	err := json.NewDecoder(ctx.Request.Body).Decode(&input)
@@ -34,13 +37,13 @@ func Create(log logger.Logger, ctx *gin.Context, useCase create.IUsecase) {
 }
 
 // Delete - Controlador para deletar um produto
-func Delete(log logger.Logger, ctx *gin.Context, useCase delete.IUsecase) {
+func Delete(log logger.ILogger, ctx *gin.Context, useCase delete.IUsecase) {
 	log.Debug("Entrou controller.Delete")
 	id, err := getIdParam(log, ctx)
 	if err != nil {
 		return
 	}
-	log.Debug("ID: " + strconv.Itoa(id))
+	log.Debug("ID: " + id)
 	resp, err := useCase.Execute(id)
 	if err != nil {
 		outputError(log, ctx, err, "Delete/useCase.Execute")
@@ -51,13 +54,14 @@ func Delete(log logger.Logger, ctx *gin.Context, useCase delete.IUsecase) {
 }
 
 // Get - Controlador para obter um produto por ID
-func Get(log logger.Logger, ctx *gin.Context, useCase get.IUsecase) {
+func Get(log logger.ILogger, ctx *gin.Context, useCase get.IUsecase) {
 	log.Debug("Entrou controller.Get")
 	id, err := getIdParam(log, ctx)
 	if err != nil {
+		outputError(log, ctx, err, "Get/getIdParam")
 		return
 	}
-	log.Debug("ID: " + strconv.Itoa(id))
+	log.Debug("ID: " + id)
 	resp, err := useCase.Execute(id)
 	if err != nil {
 		outputError(log, ctx, err, "Get/useCase.Execute")
@@ -68,7 +72,7 @@ func Get(log logger.Logger, ctx *gin.Context, useCase get.IUsecase) {
 }
 
 // GetAll - Controlador para obter todos os produtos
-func GetAll(log logger.Logger, ctx *gin.Context, useCase getall.IUsecase) {
+func GetAll(log logger.ILogger, ctx *gin.Context, useCase getall.IUsecase) {
 	log.Debug("Entrou controller.GetAll")
 
 	// Pega os parâmetros de paginação (page) da query string
@@ -95,13 +99,13 @@ func GetAll(log logger.Logger, ctx *gin.Context, useCase getall.IUsecase) {
 }
 
 // Update - Controlador para alterar um produto pelo ID
-func Update(log logger.Logger, ctx *gin.Context, useCase update.IUsecase) {
+func Update(log logger.ILogger, ctx *gin.Context, useCase update.IUsecase) {
 	log.Debug("Entrou controller.Update")
 	id, err := getIdParam(log, ctx)
 	if err != nil {
 		return
 	}
-	log.Debug("ID: " + strconv.Itoa(id))
+	log.Debug("ID: " + id)
 	var input *dto.Request
 	err = json.NewDecoder(ctx.Request.Body).Decode(&input)
 	if err != nil {
@@ -117,23 +121,49 @@ func Update(log logger.Logger, ctx *gin.Context, useCase update.IUsecase) {
 	log.Info("### Finished OK", "status_code", http.StatusOK)
 }
 
-func getIdParam(log logger.Logger, ctx *gin.Context) (int, error) {
-	idParam := ctx.Param("id")
-	id, err := strconv.Atoi(idParam)
+// Compare - Controlador para obter a lista de produtos a comparar por ID
+func Compare(log logger.ILogger, ctx *gin.Context, useCase compare.IUsecase) {
+	log.Debug("Entrou controller.Compare")
+
+	ids, err := getIdsQueryParams(log, ctx)
 	if err != nil {
-		log.Error(err.Error(), "mtd", "getIdParam/strconv.Atoi")
-		dataJErro := dto.OutputDefault{
-			StatusCode: -1,
-			Message:    "ID inválido",
-		}
-		ctx.JSON(http.StatusBadRequest, dataJErro)
-		log.Info("### Finished ERROR", "status_code", http.StatusInternalServerError)
-		return 0, err
+		outputError(log, ctx, err, "Compare/getIdsQueryParams")
+		return
 	}
-	return id, nil
+
+	resp, err := useCase.Execute(ids)
+	if err != nil {
+		outputError(log, ctx, err, "Compare/useCase.Execute")
+		return
+	}
+	ctx.JSON(http.StatusOK, resp)
+	log.Info("### Finished OK", "status_code", http.StatusOK)
 }
 
-func outputError(log logger.Logger, ctx *gin.Context, err error, method string) {
+func getIdParam(log logger.ILogger, ctx *gin.Context) (string, error) {
+	idParam := ctx.Param("id")
+	if idParam == "" {
+		log.Error("ID não informado", "mtd", "getIdParam")
+		return "", fmt.Errorf("ID não informado")
+	}
+	return idParam, nil
+}
+
+func getIdsQueryParams(log logger.ILogger, ctx *gin.Context) ([]string, error) {
+	// Pega lista de IDs da query string: /api/products/compare?ids=1,2,3
+	idsQueryParam := ctx.Query("ids")
+	if idsQueryParam == "" {
+		return nil, fmt.Errorf("Nenhum ID informado")
+	}
+	idStrs := strings.Split(idsQueryParam, ",")
+	var ids []string
+	for _, idStr := range idStrs {
+		ids = append(ids, idStr)
+	}
+	return ids, nil
+}
+
+func outputError(log logger.ILogger, ctx *gin.Context, err error, method string) {
 	log.Error(err.Error(), "mtd", method)
 	dataJErro := dto.OutputDefault{
 		StatusCode: -1,

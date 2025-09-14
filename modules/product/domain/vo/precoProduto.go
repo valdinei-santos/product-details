@@ -10,3 +10,7 @@ func NewPreco(valor float64) (Preco, error) {
 	}
 	return Preco(valor), nil
 }
+
+func (p Preco) Float64() float64 {
+	return float64(p)
+}

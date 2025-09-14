@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 	"io"
-	"log"
+	"os"
 
 	"github.com/valdinei-santos/product-details/cmd/api/routes"
 	"github.com/valdinei-santos/product-details/infra/config"
+	"github.com/valdinei-santos/product-details/infra/database/datafake"
 	"github.com/valdinei-santos/product-details/infra/logger"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 
@@ -17,18 +18,27 @@ func main() {
 	fmt.Println("Iniciando...")
 	config, err := config.LoadConfig()
 	if err != nil {
-		log.Fatalf("Erro ao carregar variáveis do .env: %v", err)
+		fmt.Printf("Erro ao carregar variáveis do .env: %v", err)
+		os.Exit(1)
 	}
 
-	log := logger.NewSlogLogger()
+	log := logger.NewSlogILogger()
 	fmt.Println("Iniciou Log...")
 
 	repoProducts, err := repository.NewProductRepo("infra/database/products.json")
 	if err != nil {
 		log.Debug(err.Error())
-		return
+		fmt.Printf("Erro ao iniciar database: %v", err)
+		os.Exit(1)
 	}
 	fmt.Println("Iniciou Database...")
+
+	err = datafake.GerarProdutosFake(repoProducts, 5)
+	if err != nil {
+		log.Debug(err.Error())
+		fmt.Printf("Erro ao gerar dados fake: %v", err)
+		os.Exit(1)
+	}
 
 	gin.DefaultWriter = io.Discard // Desabilita o log padrão do gin jogando para o io.Discard
 	router := gin.Default()

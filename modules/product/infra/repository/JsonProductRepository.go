@@ -3,9 +3,11 @@ package repository
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 	"sync"
 
+	"github.com/google/uuid"
 	"github.com/valdinei-santos/product-details/modules/product/domain/entities"
 )
 
@@ -16,7 +18,7 @@ type ProductRepo struct {
 	mutex    sync.Mutex
 }
 
-// NewProductRepo cria uma nova instância do repositório
+// NewProductRepo - cria uma nova instância do repositório
 func NewProductRepo(filePath string) (*ProductRepo, error) {
 	repo := &ProductRepo{
 		filePath: filePath,
@@ -28,7 +30,7 @@ func NewProductRepo(filePath string) (*ProductRepo, error) {
 	return repo, nil
 }
 
-// Load carrega os dados do arquivo JSON para o repositório
+// Load - carrega os dados do arquivo JSON para o repositório
 func (r *ProductRepo) Load() error {
 	data, err := os.ReadFile(r.filePath)
 	if err != nil {
@@ -42,7 +44,7 @@ func (r *ProductRepo) Load() error {
 	return json.Unmarshal(data, &r.products)
 }
 
-// Save salva os dados do repositório no arquivo JSON
+// Save - salva os dados do repositório no arquivo JSON
 func (r *ProductRepo) Save() error {
 	data, err := json.MarshalIndent(r.products, "", "  ")
 	if err != nil {
@@ -51,32 +53,58 @@ func (r *ProductRepo) Save() error {
 	return os.WriteFile(r.filePath, data, 0644)
 }
 
-// AddProduct adiciona um novo produto ao repositório
+// AddProduct - adiciona um novo produto ao repositório
 func (r *ProductRepo) AddProduct(p *entities.Product) error {
-	r.mutex.Lock()         // Bloqueia o acesso ao repositório
-	defer r.mutex.Unlock() // Libera o acesso ao repositório
+	r.mutex.Lock()         // Bloqueia o acesso ao repositório/Arquivo JSON
+	defer r.mutex.Unlock() // Libera o acesso ao repositório/Arquivo JSON
 	r.products = append(r.products, p)
 	return r.Save()
 }
 
-// GetProductByID busca um produto por ID
-func (r *ProductRepo) GetProductByID(id int) (*entities.Product, error) {
+// GetProductByID - busca um produto por ID
+func (r *ProductRepo) GetProductByID(id string) (*entities.Product, error) {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
+	idUUID, err := uuid.Parse(id)
+	if err != nil {
+		return nil, fmt.Errorf("ID inválido: %w", err)
+	}
 	for _, product := range r.products {
-		if product.ID == id {
+		if product.ID == idUUID {
 			return product, nil
 		}
 	}
 	return nil, errors.New("produto não encontrado")
 }
 
-// GetAllProducts retorna todos os produtos
+// GetManyProductByIDs - busca vários produtos por ID
+func (r *ProductRepo) GetManyProductByIDs(ids []string) ([]*entities.Product, error) {
+	r.mutex.Lock()
+	defer r.mutex.Unlock()
+	var products []*entities.Product
+	for _, id := range ids {
+		idUUID, err := uuid.Parse(id)
+		if err != nil {
+			return nil, fmt.Errorf("ID inválido: %w", err)
+		}
+		for _, product := range r.products {
+			if product.ID == idUUID {
+				products = append(products, product)
+			}
+		}
+	}
+	if len(products) == 0 {
+		return nil, errors.New("produtos não encontrados")
+	}
+	return products, nil
+}
+
+// GetAllProducts - retorna todos os produtos
 func (r *ProductRepo) GetAllProducts(offset int, limit int) ([]*entities.Product, int) {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
-	// 2. Garante que o offset e o limit não extrapolem o tamanho do array
+	// Garante que o offset e o limit não extrapolem o tamanho do array
 	total := len(r.products)
 	if offset >= total {
 		return []*entities.Product{}, total
@@ -89,12 +117,16 @@ func (r *ProductRepo) GetAllProducts(offset int, limit int) ([]*entities.Product
 	return r.products[offset:end], total
 }
 
-// UpdateProduct atualiza os dados de um produto existente
-func (r *ProductRepo) UpdateProduct(id int, p *entities.Product) error {
+// UpdateProduct - atualiza os dados de um produto existente
+func (r *ProductRepo) UpdateProduct(id string, p *entities.Product) error {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
+	idUUID, err := uuid.Parse(id)
+	if err != nil {
+		return fmt.Errorf("ID inválido: %w", err)
+	}
 	for i, product := range r.products {
-		if product.ID == id {
+		if product.ID == idUUID {
 			r.products[i] = p
 			return r.Save()
 		}
@@ -102,16 +134,26 @@ func (r *ProductRepo) UpdateProduct(id int, p *entities.Product) error {
 	return errors.New("produto não encontrado")
 }
 
-// DeleteProduct remove um produto do repositório
-func (r *ProductRepo) DeleteProduct(id int) error {
+// DeleteProduct - remove um produto do repositório
+func (r *ProductRepo) DeleteProduct(id string) error {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
+	idUUID, err := uuid.Parse(id)
+	if err != nil {
+		return fmt.Errorf("ID inválido: %w", err)
+	}
 	for i, product := range r.products {
-		if product.ID == id {
-			// Remove o usuário da slice
+		if product.ID == idUUID {
+			// Remove o produto da slice
 			r.products = append(r.products[:i], r.products[i+1:]...)
 			return r.Save()
 		}
 	}
 	return errors.New("produto não encontrado")
+}
+
+func (r *ProductRepo) Count() (int, error) {
+	r.mutex.Lock()
+	defer r.mutex.Unlock()
+	return len(r.products), nil
 }

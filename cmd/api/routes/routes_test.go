@@ -1,4 +1,4 @@
-package routes
+package routes_test
 
 import (
 	"net/http"
@@ -8,13 +8,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
+	"github.com/valdinei-santos/product-details/cmd/api/routes"
 	"github.com/valdinei-santos/product-details/infra/logger"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 )
 
 func TestInitRoutes(t *testing.T) {
 	// Mocks
-	mockLogger := logger.NewMockLogger()
+	mockILogger := logger.NewMockILogger()
 	mockRepo := repository.NewMockProductRepository()
 
 	// Cria um novo Gin engine e grupo de roteamento
@@ -23,7 +24,7 @@ func TestInitRoutes(t *testing.T) {
 	apiGroup := router.Group("/")
 
 	// Inicializa rotas
-	InitRoutes(apiGroup, mockLogger, mockRepo)
+	routes.InitRoutes(apiGroup, mockILogger, mockRepo)
 
 	// Casos de teste
 	tests := []struct {
@@ -44,7 +45,7 @@ func TestInitRoutes(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			// Define o contexto para o caso de teste
-			mockLogger.SetContext(tc.name)
+			mockILogger.SetContext(tc.name)
 
 			// Define o corpo da requisição para POST e PUT
 			var body string
@@ -72,7 +73,7 @@ func TestInitRoutes(t *testing.T) {
 
 			// Exibe os logs apenas se o teste falhar
 			if t.Failed() {
-				logs := mockLogger.GetLogs(tc.name)
+				logs := mockILogger.GetLogs(tc.name)
 				t.Logf("Logs gerados no teste '%s':\n%s", tc.name, strings.Join(logs, "\n"))
 			}
 		})

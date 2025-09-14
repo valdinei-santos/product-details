@@ -10,3 +10,7 @@ func NewNomeProduto(nome string) (NomeProduto, error) {
 	}
 	return NomeProduto(nome), nil
 }
+
+func (n NomeProduto) String() string {
+	return string(n)
+}

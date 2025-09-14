@@ -6,7 +6,15 @@
 GET {{URL}}/ping
 
 ### Get produto por ID
-GET {{APIURL}}/3
+GET {{APIURL}}/a1b2c3d4-e5f6-1234-5678-90abcdef1234
+Accept: application/json
+
+### Get traz produtos para fazer a comparação por list de IDs
+GET {{APIURL}}/compare?ids=034ab7b3-90ea-11f0-95f2-00155d6d5ec0,f81d4fae-7dec-11d0-a765-00a0c91e6bf6,c719ff1a-90d4-11f0-b166-00155d6d5ec0
+Accept: application/json
+
+### Get traz erro porque a lista de IDs é inválida
+GET {{APIURL}}/compare?ids=id-invalido
 Accept: application/json
 
 ### Get todos os produtos
@@ -22,11 +30,10 @@ POST {{APIURL}}/
 Content-Type: application/json
 
 {
-    "id": 1,
-    "nome": "produto 1",
-    "url": "http://produto.com/imagem1.jpg",
-    "descricao": "Produto 1",
-    "preco": 19.90,
+    "nome": "produto 3",
+    "url": "http://produto.com/imagem3.jpg",
+    "descricao": "Produto 3",
+    "preco": 4.90,
     "classificacao": "Eletrônicos",
     "especificacao": "Este produto possui as seguintes especificações técnicas: abc"
 }
@@ -36,7 +43,6 @@ POST {{APIURL}}/
 Content-Type: application/json
 
 {
-    "id": 2,
     "nome": "produto 2",
     "url": "http://produto.com/imagem2.jpg",
     "descricao": "Produto 2",
@@ -46,19 +52,19 @@ Content-Type: application/json
 }
 
 ### Deleta um produto
-DELETE {{APIURL}}/1
+DELETE {{APIURL}}/a1b2c3d4-e5f6-1234-5678-90abcdef1234
 Content-Type: application/json
 
 ### Adicionar um produto
-PUT {{APIURL}}/2
+PUT {{APIURL}}/a1b2c3d4-e5f6-1234-5678-90abcdef1234
 Content-Type: application/json
 
 {
-    "id": 2,
-    "nome": "produto 22",
-    "url": "http://produto.com/imagem22.jpg",
-    "descricao": "Produto 22",
+    "id": "a1b2c3d4-e5f6-1234-5678-90abcdef1234",
+    "nome": "produto 33",
+    "url": "http://produto.com/imagem33.jpg",
+    "descricao": "Produto 33",
     "preco": 18.80,
     "classificacao": "eletronicos",
-    "especificacao": "abc"
+    "especificacao": "abc3243244"
 }

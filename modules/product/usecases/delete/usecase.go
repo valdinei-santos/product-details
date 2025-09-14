@@ -9,11 +9,11 @@ import (
 // UseCase - Estrutura para o caso de uso de delete do produto
 type UseCase struct {
 	repo repository.IProductRepository // Interface do repositório para Produto
-	log  logger.Logger
+	log  logger.ILogger
 }
 
 // NewUseCase - Construtor do caso de uso
-func NewUseCase(r repository.IProductRepository, l logger.Logger) *UseCase {
+func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 	return &UseCase{
 		repo: r,
 		log:  l,
@@ -21,7 +21,7 @@ func NewUseCase(r repository.IProductRepository, l logger.Logger) *UseCase {
 }
 
 // Execute - Executa a lógica para deletar um produto
-func (u *UseCase) Execute(id int) (*dto.OutputDefault, error) {
+func (u *UseCase) Execute(id string) (*dto.OutputDefault, error) {
 	u.log.Debug("Entrou delete.Execute")
 
 	err := u.repo.DeleteProduct(id)

@@ -7,10 +7,14 @@ import (
 
 type ID uuid.UUID
 
-func NewUUID(log logger.Logger) (ID, error) {
+func NewUUID(log logger.ILogger) (ID, error) {
 	uuid, err := uuid.NewRandom()
 	if err != nil {
 		log.Error("Falha ao gerar UUID", err)
 	}
 	return ID(uuid), nil
+}
+
+func (id ID) String() string {
+	return uuid.UUID(id).String()
 }

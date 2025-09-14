@@ -10,3 +10,7 @@ func NewDescricaoProduto(desc string) (DescricaoProduto, error) {
 	}
 	return DescricaoProduto(desc), nil
 }
+
+func (d DescricaoProduto) String() string {
+	return string(d)
+}

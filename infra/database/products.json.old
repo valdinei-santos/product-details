@@ -1,0 +1,74 @@
+[
+  {
+    "ID": "0f6870af-90d5-11f0-b166-00155d6d5ec0",
+    "Nome": "produto 33",
+    "URL": "http://produto.com/imagem33.jpg",
+    "Descricao": "Produto 33",
+    "Preco": 18.8,
+    "Classificacao": "eletronicos",
+    "Especificacao": "abc3243244"
+  },
+  {
+    "ID": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
+    "Nome": "produto 1",
+    "URL": "http://produto.com/imagem1.jpg",
+    "Descricao": "Produto 1",
+    "Preco": 19.9,
+    "Classificacao": "eletronicos",
+    "Especificacao": "xyz"
+  },
+  {
+    "ID": "c719ff1a-90d4-11f0-b166-00155d6d5ec0",
+    "Nome": "produto 3",
+    "URL": "http://produto.com/imagem3.jpg",
+    "Descricao": "Produto 3",
+    "Preco": 4.9,
+    "Classificacao": "Eletrônicos",
+    "Especificacao": "Este produto possui as seguintes especificações técnicas: abc"
+  },
+  {
+    "ID": "4d8e895e-90e5-11f0-8b11-00155d6d5ec0",
+    "Nome": "Produto 1",
+    "URL": "http://produto.com/imagem1.jpg",
+    "Descricao": "Quos ullam possimus vel veritatis cupiditate.",
+    "Preco": 58.82,
+    "Classificacao": "facilis",
+    "Especificacao": "cod-402576"
+  },
+  {
+    "ID": "4d8f7fa4-90e5-11f0-8b11-00155d6d5ec0",
+    "Nome": "Produto 2",
+    "URL": "http://produto.com/imagem2.jpg",
+    "Descricao": "Fugit molestiae rem nihil ipsa sequi.",
+    "Preco": 28.55,
+    "Classificacao": "quia",
+    "Especificacao": "cod-645154"
+  },
+  {
+    "ID": "4d8fbb5e-90e5-11f0-8b11-00155d6d5ec0",
+    "Nome": "Produto 3",
+    "URL": "http://produto.com/imagem3.jpg",
+    "Descricao": "Possimus veritatis molestiae laudantium et temporibus.",
+    "Preco": 29.6,
+    "Classificacao": "aut",
+    "Especificacao": "cod-218256"
+  },
+  {
+    "ID": "4d8fe7ed-90e5-11f0-8b11-00155d6d5ec0",
+    "Nome": "Produto 4",
+    "URL": "http://produto.com/imagem4.jpg",
+    "Descricao": "Est nulla minus voluptatem quasi ut.",
+    "Preco": 39.82,
+    "Classificacao": "nihil",
+    "Especificacao": "cod-848656"
+  },
+  {
+    "ID": "4d902ddb-90e5-11f0-8b11-00155d6d5ec0",
+    "Nome": "Produto 5",
+    "URL": "http://produto.com/imagem5.jpg",
+    "Descricao": "Animi sed enim officia reprehenderit ea.",
+    "Preco": 90.88,
+    "Classificacao": "aut",
+    "Especificacao": "cod-498590"
+  }
+]

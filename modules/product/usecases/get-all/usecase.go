@@ -11,11 +11,11 @@ import (
 // UseCase - Estrutura para o caso de uso de criação de produto
 type UseCase struct {
 	repo repository.IProductRepository // Interface do repositório para Produto
-	log  logger.Logger
+	log  logger.ILogger
 }
 
 // NewUseCase - Construtor do caso de uso
-func NewUseCase(r repository.IProductRepository, l logger.Logger) *UseCase {
+func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 	return &UseCase{
 		repo: r,
 		log:  l,
@@ -36,23 +36,23 @@ func (u *UseCase) Execute(page int, size int) (*dto.ProductsPaginatedResponse, e
 	productsList := make([]dto.Response, len(paginatedProducts))
 	for i, p := range paginatedProducts {
 		productsList[i] = dto.Response{
-			ID:            p.ID,
-			Nome:          p.Nome,
-			URL:           p.URL,
-			Descricao:     p.Descricao,
-			Preco:         p.Preco,
-			Classificacao: p.Classificacao,
-			Especificacao: p.Especificacao,
+			ID:            p.ID.String(),
+			Nome:          p.Nome.String(),
+			URL:           p.URL.String(),
+			Descricao:     p.Descricao.String(),
+			Preco:         p.Preco.Float64(),
+			Classificacao: p.Classificacao.String(),
+			Especificacao: p.Especificacao.String(),
 		}
 	}
 
-	// 3. Calcula o total de páginas
+	// Calcula o total de páginas
 	totalPages := int(math.Ceil(float64(totalItems) / float64(size)))
 	if totalPages == 0 && totalItems > 0 { // Lida com o caso de 1 página.
 		totalPages = 1
 	}
 
-	// 4. Constrói a resposta paginada
+	// Constrói a resposta paginada
 	result := &dto.ProductsPaginatedResponse{
 		Products:     productsList,
 		TotalItems:   totalItems,
@@ -61,23 +61,5 @@ func (u *UseCase) Execute(page int, size int) (*dto.ProductsPaginatedResponse, e
 		ItemsPerPage: size,
 	}
 
-	/* productsList := []dto.Response{}
-	products := u.repo.GetAllProducts()
-
-	for _, p := range products {
-		result := &dto.Response{
-			ID:            p.ID,
-			Nome:          p.Nome,
-			URL:           p.URL,
-			Descricao:     p.Descricao,
-			Preco:         p.Preco,
-			Classificacao: p.Classificacao,
-			Especificacao: p.Especificacao,
-		}
-		productsList = append(productsList, *result)
-	}
-	result := &dto.ProductsResponse{
-		Products: productsList,
-	} */
 	return result, nil
 }

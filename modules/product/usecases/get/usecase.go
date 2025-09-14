@@ -6,39 +6,40 @@ import (
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 )
 
-// UseCase - Estrutura para o caso de uso de criação de produto
+// UseCase - Struct do  caso de uso
 type UseCase struct {
 	repo repository.IProductRepository // Interface do repositório para Produto
-	log  logger.Logger
+	log  logger.ILogger                // Interface do log
 }
 
 // NewUseCase - Construtor do caso de uso
-func NewUseCase(r repository.IProductRepository, l logger.Logger) *UseCase {
+func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 	return &UseCase{
 		repo: r,
 		log:  l,
 	}
 }
 
-// Execute - Executa a lógica de criação de um produto
-func (u *UseCase) Execute(id int) (*dto.Response, error) {
+// Execute - Executa a lógica de busca de um produto
+func (u *UseCase) Execute(id string) (*dto.Response, error) {
 	u.log.Debug("Entrou get.Execute")
 
-	// Salva o produto no repositório
+	// Pega o produto no repositório pelo ID
 	p, err := u.repo.GetProductByID(id)
 	if err != nil {
 		u.log.Error(err.Error(), "mtd", "u.repo.GetProductByID")
 		return nil, err
 	}
 
+	// Transforma a entidade Product no DTO Response
 	result := &dto.Response{
-		ID:            p.ID,
-		Nome:          p.Nome,
-		URL:           p.URL,
-		Descricao:     p.Descricao,
-		Preco:         p.Preco,
-		Classificacao: p.Classificacao,
-		Especificacao: p.Especificacao,
+		ID:            p.ID.String(),
+		Nome:          p.Nome.String(),
+		URL:           p.URL.String(),
+		Descricao:     p.Descricao.String(),
+		Preco:         p.Preco.Float64(),
+		Classificacao: p.Classificacao.String(),
+		Especificacao: p.Especificacao.String(),
 	}
 	return result, nil
 }

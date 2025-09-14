@@ -10,3 +10,7 @@ func NewClassificacaoProduto(desc string) (ClassificacaoProduto, error) {
 	}
 	return ClassificacaoProduto(desc), nil
 }
+
+func (c ClassificacaoProduto) String() string {
+	return string(c)
+}

@@ -7,7 +7,7 @@ import (
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 )
 
-func InitRoutes(router *gin.RouterGroup, log logger.Logger, repoProducts repository.IProductRepository) {
+func InitRoutes(router *gin.RouterGroup, log logger.ILogger, repoProducts repository.IProductRepository) {
 
 	router.Use(func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -52,5 +52,10 @@ func InitRoutes(router *gin.RouterGroup, log logger.Logger, repoProducts reposit
 	prod.DELETE("/:id", func(c *gin.Context) {
 		log.Info("### Start endpoint DELETE /api/products/:id")
 		product.StartDelete(log, c, repoProducts)
+	})
+
+	prod.GET("/compare", func(c *gin.Context) {
+		log.Info("### Start endpoint GET /api/products/compare")
+		product.StartCompare(log, c, repoProducts)
 	})
 }

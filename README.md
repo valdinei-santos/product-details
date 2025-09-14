@@ -20,7 +20,16 @@ Para facilitar os testes o repositório usado é um arquivo em JSON, podendo out
    cd product-details
    ```
 
-2. Compile o programa:
+2. Crie o arquivo **.env** com o valor da chave PORT. Você também pode renomear o arquivo .env.exemplo para .env:
+   ```bash
+   echo "PORT=8888" > .env 
+   ```
+   Confira a criação do arquivo:
+   ```bash
+   cat .env
+   ```
+
+3. Compile o programa:
    ```bash
    make build
    ```
@@ -29,7 +38,7 @@ Para facilitar os testes o repositório usado é um arquivo em JSON, podendo out
    Build completo: Executável da API product-details gerado
    ```
 
-3. Execute a API rodando o arquivo gerado no Build:
+4. Execute a API rodando o arquivo gerado no Build:
    ```bash
    ./product-details
    ```
@@ -39,6 +48,7 @@ Para facilitar os testes o repositório usado é um arquivo em JSON, podendo out
    Iniciando...
    Iniciou Log...
    Iniciou Database...
+   Gerando produtos fake caso tenha menos que 5 produtos...
    {"time":"2025-09-12T06:19:08.180555078-03:00","level":"INFO","msg":"start product-details","PORT:":"8888"}
    ```
 
