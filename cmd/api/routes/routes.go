@@ -1,3 +1,4 @@
+// Pacote routes configura as rotas da API.
 package routes
 
 import (
