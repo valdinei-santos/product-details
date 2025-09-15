@@ -18,11 +18,11 @@ Esta API é construída com uma arquitetura **RESTful**, usando URLs intuitivas 
 | Verbo   | Rota                                               | Descrição                             |
 | :------ | :------------------------------------------------- | :------------------------------------ |
 | `GET`   | `/api/v1/products?page=1&limit=2`                  | Lista todos os produtos.              |
-| `POST`  | `/api/v1/products`                                 | Cria um novo produto.                 |
 | `GET`   | `/api/v1/products{id}`                             | Retorna um produto por ID.            |
+| `GET   `| `/api/v1/products/compare?ids={id1,id2,id3,...}`   | Compara uma lista de produtos por ID. |
+| `POST`  | `/api/v1/products`                                 | Cria um novo produto.                 |
 | `PUT`   | `/api/v1/products/{id}`                            | Atualiza um produto por ID.           |
 | `DELETE`| `/api/v1/products/{id}`                            | Deleta um produto por ID.             |
-| `GET   `| `/api/v1/products/compare?ids={id1,id2,id3,...}`   | Compara uma lista de produtos por ID. |
 
 
 ### Tratamento de Erros
@@ -102,7 +102,8 @@ http://localhost:8888/swagger/index.html
 
 <h3>Fluxo de Execução do endpoint GET /api/products/{id} <span style="font-size: 0.7em;">(Os demais endpoints seguem a mesma lógica de execução)</span></h3>
 
-Com a API em execução na porta **8888 (http://localhost:8888/api/products/034ab7b3-90ea-11f0-95f2-00155d6d5ec0)**
+Com a API em execução na porta **8888**  
+**(http://localhost:8888/api/products/034ab7b3-90ea-11f0-95f2-00155d6d5ec0)**
 1. A requisição **GET** chega ao endpoint **/api/products/{id}**. A rota é processada pelo pacote **routes**.
 2. O pacote **routes** aciona a função **StartGet**, passando as dependências de **log**, **contexto do Gin** e **repository**.
 3. Dentro da função **StartGet** (no pacote **products**), uma instância do **UseCase** é criada com as dependências de **log** e **repository**. Em seguida, a função **Get** do **controller** é chamada, recebendo o **log**, o **contexto do Gin** e o **UseCase** como dependências.
@@ -111,8 +112,12 @@ Com a API em execução na porta **8888 (http://localhost:8888/api/products/034a
 6. O fluxo retorna à função **Get** do **controller**, que recebe os dados do **UseCase** e os envia para a interface HTTP do endpoint.
 
 
-## Como usei IA
-Usei IA para auxiliar basicamente na criação dos Testes Automatizados, mas tive que fazer ajustes consideráveis para que os testes funcionassem conforme o esperado. 
+## Uso de IA na construção da API
+A IA foi usada para auxiliar nas seguintes tarefas:
+- Criação dos Testes Automatizados e respectivos Mocks, onde foi necessário fazer ajustes consideráveis para que os testes funcionassem conforme o esperado. 
+- Implantação da lib **swaggo**, para fornecer a documentação da API.
+- Criação da função geradora de produtos Fake.
+- Preenchimento automático de alguns códigos sugeridos pelo Copilot no VSCode.
 
 
 ## Autor

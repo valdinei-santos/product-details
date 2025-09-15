@@ -1,3 +1,4 @@
+// Pacote principal da aplicação que inicia a API.
 package main
 
 import (

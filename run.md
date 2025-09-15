@@ -39,7 +39,19 @@ Para rodar a API, você executa o arquivo executável `product-details` que foi 
 ./product-details
 ```
 
-## 4. Testes
+## 4. Testes nos endpoints
+Com a API em execução você pode fazer testes básicos usuando sua ferramenta preferida.
+Seguem alguns endpoints de exemplo.
+- GET http://localhost:8888/ping
+- GET http://localhost:8888/api/v1/products?page=1&limit=2
+- GET http://localhost:8888/api/v1/products/0d605862-91e8-11f0-9140-00155d6d572f
+- GET http://localhost:8888/api/v1/products/compare?ids=0d605862-91e8-11f0-9140-00155d6d572f,034aeff8-90ea-11f0-95f2-00155d6d5ec0
+- POST http://localhost:8888/api/v1/products/ --> Body com JSON conforme documentação OpenAPI
+- PUT http://localhost:8888/api/v1/products/0d605862-91e8-11f0-9140-00155d6d572f
+- DELETE http://localhost:8888/api/v1/products/0d605862-91e8-11f0-9140-00155d6d572f
+
+
+## 5. Testes automatizados
 Para rodar os testes unitários e de integração do projeto, siga os passos abaixo:
 
 1. Navegue até o diretório do projeto. Caso a API esteja rodando você precisa parar ela com CTRL+C:
@@ -77,3 +89,10 @@ O projeto inclui testes automatizados para os seguintes pacotes:
 - **modules/product/usecases/get**: Faz testes de unidade do usecase **get**
 - **modules/product/usecases/getall**: Faz testes de unidade do usecase **getall**
 - **modules/product/usecases/update**: Faz testes de unidade do usecase **update**
+
+
+## 6. Documentação da API
+O link para acessar a documentação está disponível no `README.md`, mas caso algum alteração seja feita no código da API e você precise recriar a documentação, o comando abaixo deverá ser executado:
+```bash
+make docs
+```
