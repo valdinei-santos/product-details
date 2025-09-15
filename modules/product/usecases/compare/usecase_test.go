@@ -24,7 +24,7 @@ func TestExecute(t *testing.T) {
 		repo         *repository.MockProductRepository
 		logger       *logger.MockILogger
 		inputIDs     []string
-		expectedResp *dto.ProductsResponse
+		expectedResp *dto.ResponseMany
 		expectedErr  error
 		expectDebug  bool
 		expectError  bool
@@ -34,7 +34,7 @@ func TestExecute(t *testing.T) {
 			repo:     mockRepo,
 			logger:   logger.NewMockILogger(),
 			inputIDs: ids,
-			expectedResp: &dto.ProductsResponse{
+			expectedResp: &dto.ResponseMany{
 				Products: []dto.Response{
 					{
 						ID:            mockRepo.Products[0].ID.String(),

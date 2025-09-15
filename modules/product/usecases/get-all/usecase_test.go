@@ -21,7 +21,7 @@ func TestExecute(t *testing.T) {
 		logger       *logger.MockILogger
 		page         int
 		size         int
-		expectedResp *dto.ProductsPaginatedResponse
+		expectedResp *dto.ResponseManyPaginated
 		expectedErr  error
 		expectDebug  bool
 		expectError  bool
@@ -32,7 +32,7 @@ func TestExecute(t *testing.T) {
 			logger: logger.NewMockILogger(),
 			page:   1,
 			size:   2,
-			expectedResp: &dto.ProductsPaginatedResponse{
+			expectedResp: &dto.ResponseManyPaginated{
 				Products: []dto.Response{
 					{
 						ID:            mockRepo.Products[0].ID.String(),
@@ -68,7 +68,7 @@ func TestExecute(t *testing.T) {
 			logger: logger.NewMockILogger(),
 			page:   2,
 			size:   2,
-			expectedResp: &dto.ProductsPaginatedResponse{
+			expectedResp: &dto.ResponseManyPaginated{
 				Products: []dto.Response{
 					{
 						ID:            mockRepo.Products[2].ID.String(),
@@ -95,7 +95,7 @@ func TestExecute(t *testing.T) {
 			logger: logger.NewMockILogger(),
 			page:   10,
 			size:   2,
-			expectedResp: &dto.ProductsPaginatedResponse{
+			expectedResp: &dto.ResponseManyPaginated{
 				Products:     []dto.Response{},
 				TotalItems:   len(mockRepo.Products),
 				TotalPages:   2,
@@ -112,7 +112,7 @@ func TestExecute(t *testing.T) {
 			logger: logger.NewMockILogger(),
 			page:   1,
 			size:   10, // Maior que o número de produtos
-			expectedResp: &dto.ProductsPaginatedResponse{
+			expectedResp: &dto.ResponseManyPaginated{
 				Products: []dto.Response{
 					{
 						ID:            mockRepo.Products[0].ID.String(),

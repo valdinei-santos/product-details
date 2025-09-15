@@ -22,6 +22,16 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 	}
 }
 
+// @Summary      Atualiza um produto pelo ID
+// @Description  Atualiza um produto existente com base no ID
+// @Tags         produtos
+// @Accept       json
+// @Produce      json
+// @Param        id path string true "Product ID"
+// @Param        produto body dto.Request  true  "Dados do produto para atualização"
+// @Success      200 {object} dto.Response
+// @Failure      400 {object} dto.OutputDefault
+// @Router       /products/{id} [put]
 // Execute - Executa a lógica de criação de um produto
 func (u *UseCase) Execute(id string, in *dto.Request) (*dto.Response, error) {
 	u.log.Debug("Entrou create.Execute")

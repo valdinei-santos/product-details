@@ -20,8 +20,16 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 	}
 }
 
+// @Summary      Compara múltiplos produtos por uma lista de IDs
+// @Description  Retorna uma lista de produtos com base nos IDs fornecidos em um formato de lista separada por vírgulas
+// @Tags         produtos
+// @Produce      json
+// @Param        ids query string true "IDs dos produtos a serem comparados (ex: 0d605862-91e8-11f0-9140-00155d6d572f,034aeff8-90ea-11f0-95f2-00155d6d5ec0,034afa35-90ea-11f0-95f2-00155d6d5ec0,034b11f9-90ea-11f0-95f2-00155d6d5ec0)"
+// @Success      200 {array} dto.ResponseManyPaginated
+// @Failure      400 {object} string "Requisição inválida"
+// @Router       /api/v1/compare [get]
 // Execute - Executa a lógica de comparação de produtos
-func (u *UseCase) Execute(ids []string) (*dto.ProductsResponse, error) {
+func (u *UseCase) Execute(ids []string) (*dto.ResponseMany, error) {
 	u.log.Debug("Entrou get.Execute")
 
 	// Pega os produtos no repositório pelos IDs
@@ -44,7 +52,7 @@ func (u *UseCase) Execute(ids []string) (*dto.ProductsResponse, error) {
 		}
 	}
 
-	result := &dto.ProductsResponse{
+	result := &dto.ResponseMany{
 		Products: productsList,
 	}
 

@@ -24,7 +24,7 @@ func Create(log logger.ILogger, ctx *gin.Context, useCase create.IUsecase) {
 	var input *dto.Request
 	err := json.NewDecoder(ctx.Request.Body).Decode(&input)
 	if err != nil {
-		outputError(log, ctx, err, "Create/json.NewDecoder")
+		outputErrorBadRequest(log, ctx, err, "Create/json.NewDecoder")
 		return
 	}
 	resp, err := useCase.Execute(input)
@@ -33,15 +33,9 @@ func Create(log logger.ILogger, ctx *gin.Context, useCase create.IUsecase) {
 			outputErrorInternal(log, ctx, "Create/useCase.Execute")
 			return
 		}
-		outputError(log, ctx, err, "Create/useCase.Execute")
+		outputErrorBadRequest(log, ctx, err, "Create/useCase.Execute")
 		return
 	}
-
-	/* // Retorna a resposta padrão
-	result := &dto.OutputDefault{
-		StatusCode: 1,
-		Message:    "Produto inserido com sucesso",
-	} */
 
 	ctx.JSON(http.StatusCreated, resp)
 	log.Info("### Finished OK", "status_code", http.StatusCreated)
@@ -57,12 +51,17 @@ func Delete(log logger.ILogger, ctx *gin.Context, useCase delete.IUsecase) {
 	log.Debug("ID: " + id)
 	err = useCase.Execute(id)
 	if err != nil {
-		if err == localerror.ErrProductInternal {
+		switch err {
+		case localerror.ErrProductInternal:
 			outputErrorInternal(log, ctx, "Delete/useCase.Execute")
 			return
+		case localerror.ErrProductNotFound:
+			outputErrorNotFound(log, ctx, err, "Delete/useCase.Execute")
+			return
+		default:
+			outputErrorBadRequest(log, ctx, err, "Delete/useCase.Execute")
+			return
 		}
-		outputError(log, ctx, err, "Delete/useCase.Execute")
-		return
 	}
 
 	// Retorna a resposta padrão
@@ -80,7 +79,7 @@ func Get(log logger.ILogger, ctx *gin.Context, useCase get.IUsecase) {
 	log.Debug("Entrou controller.Get")
 	id, err := getIdParam(log, ctx)
 	if err != nil {
-		outputError(log, ctx, err, "Get/getIdParam")
+		outputErrorBadRequest(log, ctx, err, "Get/getIdParam")
 		return
 	}
 	log.Debug("ID: " + id)
@@ -90,7 +89,7 @@ func Get(log logger.ILogger, ctx *gin.Context, useCase get.IUsecase) {
 			outputErrorInternal(log, ctx, "Get/useCase.Execute")
 			return
 		}
-		outputError(log, ctx, err, "Get/useCase.Execute")
+		outputErrorBadRequest(log, ctx, err, "Get/useCase.Execute")
 		return
 	}
 	ctx.JSON(http.StatusOK, resp)
@@ -104,14 +103,14 @@ func GetAll(log logger.ILogger, ctx *gin.Context, useCase getall.IUsecase) {
 	// Pega os parâmetros de paginação (page) da query string
 	page, err := strconv.Atoi(ctx.DefaultQuery("page", "1"))
 	if err != nil || page < 1 {
-		outputError(log, ctx, err, "GetAll/parse_page")
+		outputErrorBadRequest(log, ctx, err, "GetAll/parse_page")
 		return
 	}
 
 	// Pega os parâmetros de paginação (size) da query string
 	size, err := strconv.Atoi(ctx.DefaultQuery("size", "10"))
 	if err != nil || size < 1 {
-		outputError(log, ctx, err, "GetAll/parse_size")
+		outputErrorBadRequest(log, ctx, err, "GetAll/parse_size")
 		return
 	}
 
@@ -121,7 +120,7 @@ func GetAll(log logger.ILogger, ctx *gin.Context, useCase getall.IUsecase) {
 			outputErrorInternal(log, ctx, "GetAll/useCase.Execute")
 			return
 		}
-		outputError(log, ctx, err, "GetAll/useCase.Execute")
+		outputErrorBadRequest(log, ctx, err, "GetAll/useCase.Execute")
 		return
 	}
 	ctx.JSON(http.StatusOK, resp)
@@ -139,7 +138,7 @@ func Update(log logger.ILogger, ctx *gin.Context, useCase update.IUsecase) {
 	var input *dto.Request
 	err = json.NewDecoder(ctx.Request.Body).Decode(&input)
 	if err != nil {
-		outputError(log, ctx, err, "Update/json.NewDecoder")
+		outputErrorBadRequest(log, ctx, err, "Update/json.NewDecoder")
 		return
 	}
 	resp, err := useCase.Execute(id, input)
@@ -148,7 +147,7 @@ func Update(log logger.ILogger, ctx *gin.Context, useCase update.IUsecase) {
 			outputErrorInternal(log, ctx, "Update/useCase.Execute")
 			return
 		}
-		outputError(log, ctx, err, "Update/useCase.Execute")
+		outputErrorBadRequest(log, ctx, err, "Update/useCase.Execute")
 		return
 	}
 	ctx.JSON(http.StatusOK, resp)
@@ -161,7 +160,7 @@ func Compare(log logger.ILogger, ctx *gin.Context, useCase compare.IUsecase) {
 
 	ids, err := getIdsQueryParams(ctx)
 	if err != nil {
-		outputError(log, ctx, err, "Compare/getIdsQueryParams")
+		outputErrorBadRequest(log, ctx, err, "Compare/getIdsQueryParams")
 		return
 	}
 
@@ -171,7 +170,7 @@ func Compare(log logger.ILogger, ctx *gin.Context, useCase compare.IUsecase) {
 			outputErrorInternal(log, ctx, "Compare/useCase.Execute")
 			return
 		}
-		outputError(log, ctx, err, "Compare/useCase.Execute")
+		outputErrorBadRequest(log, ctx, err, "Compare/useCase.Execute")
 		return
 	}
 	ctx.JSON(http.StatusOK, resp)
@@ -199,7 +198,7 @@ func getIdsQueryParams(ctx *gin.Context) ([]string, error) {
 	return ids, nil
 }
 
-func outputError(log logger.ILogger, ctx *gin.Context, err error, method string) {
+func outputErrorBadRequest(log logger.ILogger, ctx *gin.Context, err error, method string) {
 	log.Error(err.Error(), "mtd", method)
 	dataJErro := dto.OutputDefault{
 		StatusCode: -1,
@@ -207,6 +206,16 @@ func outputError(log logger.ILogger, ctx *gin.Context, err error, method string)
 	}
 	ctx.JSON(http.StatusBadRequest, dataJErro)
 	log.Info("### Finished ERROR", "status_code", http.StatusBadRequest)
+}
+
+func outputErrorNotFound(log logger.ILogger, ctx *gin.Context, err error, method string) {
+	log.Error(err.Error(), "mtd", method)
+	dataJErro := dto.OutputDefault{
+		StatusCode: -1,
+		Message:    err.Error(),
+	}
+	ctx.JSON(http.StatusNotFound, dataJErro)
+	log.Info("### Finished ERROR", "status_code", http.StatusNotFound)
 }
 
 func outputErrorInternal(log logger.ILogger, ctx *gin.Context, method string) {

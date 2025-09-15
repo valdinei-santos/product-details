@@ -22,8 +22,17 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 	}
 }
 
+// @Summary        Lista todos os produtos
+// @Description    Retorna uma lista de produtos, paginada
+// @Tags           produtos
+// @Produce        json
+// @Param          page query int false "Numero da página a ser retornada"
+// @Param          size query int false "Quantidade de itens na página a ser retornada"
+// @Success        200 {array} dto.ResponseManyPaginated
+// @Failure        500 {string} string "Erro interno do servidor"
+// @Router         /products [get]
 // Execute - Executa a lógica para buscar todos os produtos
-func (u *UseCase) Execute(page int, size int) (*dto.ProductsPaginatedResponse, error) {
+func (u *UseCase) Execute(page int, size int) (*dto.ResponseManyPaginated, error) {
 	u.log.Debug("Entrou create.Execute")
 
 	// Calcula o offset para o repositório
@@ -57,7 +66,7 @@ func (u *UseCase) Execute(page int, size int) (*dto.ProductsPaginatedResponse, e
 	}
 
 	// Constrói a resposta paginada
-	result := &dto.ProductsPaginatedResponse{
+	result := &dto.ResponseManyPaginated{
 		Products:     productsList,
 		TotalItems:   totalItems,
 		TotalPages:   totalPages,

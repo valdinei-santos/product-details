@@ -20,6 +20,15 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 	}
 }
 
+// @Summary      Retorna um produto pelo ID
+// @Description  Retorna um produto específico com base no ID fornecido
+// @Tags         produtos
+// @Accept       json
+// @Produce      json
+// @Param        id path string true "Product ID"
+// @Success      200 {object} dto.Response
+// @Failure      400 {object} dto.OutputDefault
+// @Router       /products/{id} [get]
 // Execute - Executa a lógica de busca de um produto
 func (u *UseCase) Execute(id string) (*dto.Response, error) {
 	u.log.Debug("Entrou get.Execute")

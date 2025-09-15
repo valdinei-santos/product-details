@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/valdinei-santos/product-details/cmd/api/routes"
+	_ "github.com/valdinei-santos/product-details/cmd/api/routes"
 	"github.com/valdinei-santos/product-details/infra/config"
 	"github.com/valdinei-santos/product-details/infra/database/datafake"
 	"github.com/valdinei-santos/product-details/infra/logger"
@@ -16,7 +17,7 @@ import (
 
 // @title Product Details API
 // @version 1.0
-// @description Esta é a API para gerenciar detalhes de produtos.
+// @description Está API gerencia detalhes de produtos.
 // @host localhost:8888
 // @BasePath /api/v1
 func main() {

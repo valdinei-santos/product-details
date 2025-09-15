@@ -1,6 +1,6 @@
 # API REST product-details
 
-Esta é uma API REST feita em Golang para gerenciar produtos, permitindo a comparação de múltiplos produtos.
+Esta é uma API REST feita em Golang para gerenciar produtos, permitindo a comparação de múltiplos produtos. Veja mais detalhes no `README.md`
 
 ## Pré-requisitos
 
@@ -22,9 +22,9 @@ go mod tidy
 ```
 
 ## 2. Configuração
-Para rodar a API, você precisa criar um arquivo de variáveis de ambiente .env. Copie o arquivo de exemplo env.example, nesse momento você só precisa da definição da PORTA que a API vai rodar:
+Para rodar a API, você precisa criar um arquivo de variáveis de ambiente `.env`. Copie o arquivo de exemplo `env.example`, pois nesse momento você só precisa da definição da PORTA que a API vai rodar:
 ```bash
-cp .env.example .env
+cp .env.exemplo .env
 ```
 
 ## 3. Execução
@@ -34,7 +34,7 @@ Para compilar a API, use o seguinte comando.
 make build
 ```
 
-Para rodar a API, você simplementes executa o arquivo gerado no passo anterior:
+Para rodar a API, você executa o arquivo executável `product-details` que foi gerado:
 ```bash
 ./product-details
 ```

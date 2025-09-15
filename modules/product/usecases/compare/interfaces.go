@@ -6,5 +6,5 @@ import (
 
 // IUsecase - ...
 type IUsecase interface {
-	Execute(ids []string) (*dto.ProductsResponse, error)
+	Execute(ids []string) (*dto.ResponseMany, error)
 }

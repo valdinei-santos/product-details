@@ -1,9 +1,9 @@
 # Variables
 APP_NAME=product-details
 
-# Tasks
-default: build
+.PHONY: default run build test cover docs clean
 
+default: build
 run:
 	@go run cmd/api/main.go
 build:
@@ -13,3 +13,9 @@ test:
 	go test ./...
 cover:
 	go test -v -cover ./...
+docs:
+	@swag init -g ./cmd/api/main.go -o ./docs
+	@echo "Documentação gerada em internal/docs"
+clean:
+	@rm -f $(APP_NAME)
+	@echo "Limpeza completa: Executável removido"

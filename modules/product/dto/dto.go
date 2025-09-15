@@ -1,16 +1,5 @@
 package dto
 
-// ProductDTO - Representa a estrutura de um produto
-type ProductDTO struct {
-	ID            string  `json:"id"`
-	Nome          string  `json:"nome"`
-	URLImagem     string  `json:"url_imagem"`
-	Descricao     string  `json:"descricao"`
-	Preco         float64 `json:"preco"`
-	Classificacao string  `json:"classificacao"`
-	Especificacao string  `json:"especificacao"`
-}
-
 // Request - Representa os dados necessários para criar ou atualizar um produto
 type Request struct {
 	ID            string  `json:"id"`
@@ -35,7 +24,7 @@ type Response struct {
 	UpdatedAt     string  `json:"updated_at"`
 }
 
-type ProductsPaginatedResponse struct {
+type ResponseManyPaginated struct {
 	Products     []Response `json:"products"`
 	TotalItems   int        `json:"totalItems"`
 	TotalPages   int        `json:"totalPages"`
@@ -43,8 +32,8 @@ type ProductsPaginatedResponse struct {
 	ItemsPerPage int        `json:"itemsPerPage"`
 }
 
-// ProductsResponse - Representa a resposta de uma lista de produtos
-type ProductsResponse struct {
+// ResponseMany - Representa a resposta de uma lista de produtos
+type ResponseMany struct {
 	Products []Response `json:"products"`
 }
 
