@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/valdinei-santos/product-details/infra/logger"
+	"github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 	"github.com/valdinei-santos/product-details/modules/product/dto"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 	"github.com/valdinei-santos/product-details/modules/product/usecases/get"
@@ -35,7 +36,7 @@ func TestExecute(t *testing.T) {
 			expectedResp: &dto.Response{
 				ID:            mockRepoWithProduct.Products[0].ID.String(),
 				Nome:          mockRepoWithProduct.Products[0].Nome.String(),
-				URL:           mockRepoWithProduct.Products[0].URL.String(),
+				URLImagem:     mockRepoWithProduct.Products[0].URLImagem.String(),
 				Descricao:     mockRepoWithProduct.Products[0].Descricao.String(),
 				Preco:         mockRepoWithProduct.Products[0].Preco.Float64(),
 				Classificacao: mockRepoWithProduct.Products[0].Classificacao.String(),
@@ -51,7 +52,7 @@ func TestExecute(t *testing.T) {
 			logger:       logger.NewMockILogger(),
 			inputID:      uuid.New().String(), // Gera um ID que não existe
 			expectedResp: nil,
-			expectedErr:  errors.New("produto não encontrado"),
+			expectedErr:  localerror.ErrProductNotFound,
 			expectDebug:  true,
 			expectError:  true,
 		},
@@ -61,7 +62,7 @@ func TestExecute(t *testing.T) {
 			logger:       logger.NewMockILogger(),
 			inputID:      "id-invalido", // ID que não é um UUID
 			expectedResp: nil,
-			expectedErr:  errors.New("ID inválido: invalid UUID length: 11"),
+			expectedErr:  localerror.ErrProductIDInvalid, //errors.New("ID inválido: invalid UUID length: 11"),
 			expectDebug:  true,
 			expectError:  true,
 		},

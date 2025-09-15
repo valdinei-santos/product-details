@@ -1,12 +1,12 @@
 package vo
 
-import "errors"
+import "github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 
 type ClassificacaoProduto string
 
 func NewClassificacaoProduto(desc string) (ClassificacaoProduto, error) {
 	if len(desc) < 3 || len(desc) > 50 {
-		return "", errors.New("a classificacao deve ter entre 3 e 50 caracteres")
+		return "", localerror.ErrProductClassificationInvalid
 	}
 	return ClassificacaoProduto(desc), nil
 }

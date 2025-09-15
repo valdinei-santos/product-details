@@ -3,6 +3,7 @@ package update
 import (
 	"github.com/valdinei-santos/product-details/infra/logger"
 	"github.com/valdinei-santos/product-details/modules/product/domain/entities"
+	"github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 	"github.com/valdinei-santos/product-details/modules/product/dto"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 )
@@ -22,27 +23,41 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 }
 
 // Execute - Executa a lógica de criação de um produto
-func (u *UseCase) Execute(id string, in *dto.Request) (*dto.OutputDefault, error) {
+func (u *UseCase) Execute(id string, in *dto.Request) (*dto.Response, error) {
 	u.log.Debug("Entrou create.Execute")
 
-	// Cria o objeto Product a partir do DTO de entrada
-	p, err := entities.NewProduct(in.Nome, in.URL, in.Descricao, in.Preco, in.Classificacao, in.Especificacao)
+	// Pega o produto no repositório pelo ID
+	p, err := u.repo.GetProductByID(id)
 	if err != nil {
-		u.log.Error(err.Error(), "mtd", "entities.NewProduct")
+		u.log.Error(err.Error(), "mtd", "u.repo.GetProductByID")
+		return nil, localerror.ErrProductNotFound
+	}
+
+	// Altera o objeto Product a partir do Product enviado no DTO de entrada
+	pNew, err := entities.UpdateProduct(id, in.Nome, in.URLImagem, in.Descricao, in.Preco, in.Classificacao, in.Especificacao, p.CreatedAt)
+	if err != nil {
+		u.log.Error(err.Error(), "mtd", "entities.UpdateProduct")
 		return nil, err
 	}
 
 	// Altera o produto no repositório
-	err = u.repo.UpdateProduct(id, p)
+	err = u.repo.UpdateProduct(id, pNew)
 	if err != nil {
 		u.log.Error(err.Error(), "mtd", "u.repo.UpdateProduct")
 		return nil, err
 	}
 
-	// Retorna a resposta padrão
-	result := &dto.OutputDefault{
-		StatusCode: 1,
-		Message:    "Produto alterado com sucesso",
+	// Retorna o DTO de saída
+	resp := &dto.Response{
+		ID:            pNew.ID.String(),
+		Nome:          pNew.Nome.String(),
+		URLImagem:     pNew.URLImagem.String(),
+		Descricao:     pNew.Descricao.String(),
+		Preco:         pNew.Preco.Float64(),
+		Classificacao: pNew.Classificacao.String(),
+		Especificacao: pNew.Especificacao.String(),
+		CreatedAt:     pNew.CreatedAt.String(),
+		UpdatedAt:     pNew.UpdatedAt.String(),
 	}
-	return result, nil
+	return resp, nil
 }

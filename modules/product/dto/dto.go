@@ -4,7 +4,7 @@ package dto
 type ProductDTO struct {
 	ID            string  `json:"id"`
 	Nome          string  `json:"nome"`
-	URL           string  `json:"url"`
+	URLImagem     string  `json:"url_imagem"`
 	Descricao     string  `json:"descricao"`
 	Preco         float64 `json:"preco"`
 	Classificacao string  `json:"classificacao"`
@@ -15,7 +15,7 @@ type ProductDTO struct {
 type Request struct {
 	ID            string  `json:"id"`
 	Nome          string  `json:"nome"`
-	URL           string  `json:"url"`
+	URLImagem     string  `json:"url_imagem"`
 	Descricao     string  `json:"descricao"`
 	Preco         float64 `json:"preco"`
 	Classificacao string  `json:"classificacao"`
@@ -26,11 +26,13 @@ type Request struct {
 type Response struct {
 	ID            string  `json:"id"`
 	Nome          string  `json:"nome"`
-	URL           string  `json:"url"`
+	URLImagem     string  `json:"url_imagem"`
 	Descricao     string  `json:"descricao"`
 	Preco         float64 `json:"preco"`
 	Classificacao string  `json:"classificacao"`
 	Especificacao string  `json:"especificacao"`
+	CreatedAt     string  `json:"created_at"`
+	UpdatedAt     string  `json:"updated_at"`
 }
 
 type ProductsPaginatedResponse struct {

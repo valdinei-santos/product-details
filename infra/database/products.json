@@ -1,47 +1,134 @@
 [
   {
-    "ID": "034ab7b3-90ea-11f0-95f2-00155d6d5ec0",
-    "Nome": "Notebook",
-    "URL": "http://produto.com/imagem1.jpg",
-    "Descricao": "Produto de alta qualidade",
-    "Preco": 207.48,
+    "ID": "0d605862-91e8-11f0-9140-00155d6d572f",
+    "Nome": "produto 333",
+    "URLImagem": "http://produto.com/imagem333.jpg",
+    "Descricao": "Produto 333",
+    "Preco": 18.8,
     "Classificacao": "eletronicos",
-    "Especificacao": "COD-3969480"
+    "Especificacao": "abc32433244",
+    "CreatedAt": "2025-09-15T00:57:09.134347767-03:00",
+    "UpdatedAt": "2025-09-15T00:57:09.134348367-03:00"
   },
   {
-    "ID": "034aeff8-90ea-11f0-95f2-00155d6d5ec0",
-    "Nome": "Smart TV",
-    "URL": "http://produto.com/imagem2.jpg",
-    "Descricao": "Excelente desempenho",
-    "Preco": 402.2,
-    "Classificacao": "acessorios",
-    "Especificacao": "COD-1966598"
-  },
-  {
-    "ID": "034afa35-90ea-11f0-95f2-00155d6d5ec0",
-    "Nome": "Tablet",
-    "URL": "http://produto.com/imagem3.jpg",
-    "Descricao": "Ideal para o dia a dia",
-    "Preco": 436.5,
-    "Classificacao": "informatica",
-    "Especificacao": "COD-5706276"
-  },
-  {
-    "ID": "034b11f9-90ea-11f0-95f2-00155d6d5ec0",
-    "Nome": "Fone de Ouvido",
-    "URL": "http://produto.com/imagem4.jpg",
+    "ID": "ad4aa5a8-91e7-11f0-9140-00155d6d572f",
+    "Nome": "Console de Videogame",
+    "URLImagem": "http://produto.com/imagem2.jpg",
     "Descricao": "Design moderno e elegante",
-    "Preco": 903.93,
-    "Classificacao": "eletrodomesticos",
-    "Especificacao": "COD-2070901"
+    "Preco": 707.96,
+    "Classificacao": "informatica",
+    "Especificacao": "COD-2637472",
+    "CreatedAt": "2025-09-15T00:54:27.930871407-03:00",
+    "UpdatedAt": "2025-09-15T00:54:27.930871507-03:00"
   },
   {
-    "ID": "034b2a6a-90ea-11f0-95f2-00155d6d5ec0",
+    "ID": "ad4aae29-91e7-11f0-9140-00155d6d572f",
     "Nome": "Fone de Ouvido",
-    "URL": "http://produto.com/imagem5.jpg",
-    "Descricao": "Excelente desempenho",
-    "Preco": 314.76,
+    "URLImagem": "http://produto.com/imagem3.jpg",
+    "Descricao": "Ideal para o dia a dia",
+    "Preco": 472.64,
     "Classificacao": "eletronicos",
-    "Especificacao": "COD-3434311"
+    "Especificacao": "COD-7298088",
+    "CreatedAt": "2025-09-15T00:54:27.931089107-03:00",
+    "UpdatedAt": "2025-09-15T00:54:27.931089307-03:00"
+  },
+  {
+    "ID": "ad4ae960-91e7-11f0-9140-00155d6d572f",
+    "Nome": "Notebook",
+    "URLImagem": "http://produto.com/imagem4.jpg",
+    "Descricao": "Design moderno e elegante",
+    "Preco": 894.61,
+    "Classificacao": "informatica",
+    "Especificacao": "COD-6171834",
+    "CreatedAt": "2025-09-15T00:54:27.932605007-03:00",
+    "UpdatedAt": "2025-09-15T00:54:27.932605007-03:00"
+  },
+  {
+    "ID": "ad4b0ea7-91e7-11f0-9140-00155d6d572f",
+    "Nome": "Smart TV",
+    "URLImagem": "http://produto.com/imagem5.jpg",
+    "Descricao": "Produto de alta qualidade",
+    "Preco": 105.48,
+    "Classificacao": "informatica",
+    "Especificacao": "COD-6929833",
+    "CreatedAt": "2025-09-15T00:54:27.933559507-03:00",
+    "UpdatedAt": "2025-09-15T00:54:27.933559607-03:00"
+  },
+  {
+    "ID": "ad4b2c24-91e7-11f0-9140-00155d6d572f",
+    "Nome": "Notebook",
+    "URLImagem": "http://produto.com/imagem6.jpg",
+    "Descricao": "Ideal para o dia a dia",
+    "Preco": 500.63,
+    "Classificacao": "eletrodomesticos",
+    "Especificacao": "COD-8664780",
+    "CreatedAt": "2025-09-15T00:54:27.934314507-03:00",
+    "UpdatedAt": "2025-09-15T00:54:27.934314507-03:00"
+  },
+  {
+    "ID": "ad4b8271-91e7-11f0-9140-00155d6d572f",
+    "Nome": "Smartphone",
+    "URLImagem": "http://produto.com/imagem7.jpg",
+    "Descricao": "Excelente desempenho",
+    "Preco": 387.5,
+    "Classificacao": "jogos",
+    "Especificacao": "COD-7101185",
+    "CreatedAt": "2025-09-15T00:54:27.936523807-03:00",
+    "UpdatedAt": "2025-09-15T00:54:27.936523907-03:00"
+  },
+  {
+    "ID": "ad4bb6ba-91e7-11f0-9140-00155d6d572f",
+    "Nome": "Console de Videogame",
+    "URLImagem": "http://produto.com/imagem8.jpg",
+    "Descricao": "Produto de alta qualidade",
+    "Preco": 170.59,
+    "Classificacao": "jogos",
+    "Especificacao": "COD-5728098",
+    "CreatedAt": "2025-09-15T00:54:27.937862207-03:00",
+    "UpdatedAt": "2025-09-15T00:54:27.937862207-03:00"
+  },
+  {
+    "ID": "ad4bd7d9-91e7-11f0-9140-00155d6d572f",
+    "Nome": "Smartphone",
+    "URLImagem": "http://produto.com/imagem9.jpg",
+    "Descricao": "Ideal para o dia a dia",
+    "Preco": 703.15,
+    "Classificacao": "eletronicos",
+    "Especificacao": "COD-3520278",
+    "CreatedAt": "2025-09-15T00:54:27.938710107-03:00",
+    "UpdatedAt": "2025-09-15T00:54:27.938710207-03:00"
+  },
+  {
+    "ID": "ad4c0693-91e7-11f0-9140-00155d6d572f",
+    "Nome": "Smart TV",
+    "URLImagem": "http://produto.com/imagem10.jpg",
+    "Descricao": "Design moderno e elegante",
+    "Preco": 376.89,
+    "Classificacao": "informatica",
+    "Especificacao": "COD-2847024",
+    "CreatedAt": "2025-09-15T00:54:27.939906207-03:00",
+    "UpdatedAt": "2025-09-15T00:54:27.939906307-03:00"
+  },
+  {
+    "ID": "e73ca6f1-91f3-11f0-abfa-00155d6d572f",
+    "Nome": "produto 3",
+    "URLImagem": "http://produto.com/imagem3.jpg",
+    "Descricao": "Produto 3",
+    "Preco": 4.9,
+    "Classificacao": "Eletrônicos",
+    "Especificacao": "Este produto possui as seguintes especificações técnicas: abc",
+    "CreatedAt": "2025-09-15T02:21:59.110735487-03:00",
+    "UpdatedAt": "2025-09-15T02:21:59.110735587-03:00"
+  },
+  {
+    "ID": "0621c52e-91f4-11f0-abfa-00155d6d572f",
+    "Nome": "produto 333",
+    "URLImagem": "http://produto.com/imagem333.jpg",
+    "Descricao": "Produto 333",
+    "Preco": 18.8,
+    "Classificacao": "eletronicos",
+    "Especificacao": "abc32433244",
+    "CreatedAt": "2025-09-15T02:22:50.940958694-03:00",
+    "UpdatedAt": "2025-09-15T02:33:44.156064118-03:00"
   }
 ]

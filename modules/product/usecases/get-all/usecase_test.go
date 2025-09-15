@@ -37,7 +37,7 @@ func TestExecute(t *testing.T) {
 					{
 						ID:            mockRepo.Products[0].ID.String(),
 						Nome:          mockRepo.Products[0].Nome.String(),
-						URL:           mockRepo.Products[0].URL.String(),
+						URLImagem:     mockRepo.Products[0].URLImagem.String(),
 						Descricao:     mockRepo.Products[0].Descricao.String(),
 						Preco:         mockRepo.Products[0].Preco.Float64(),
 						Classificacao: mockRepo.Products[0].Classificacao.String(),
@@ -46,7 +46,7 @@ func TestExecute(t *testing.T) {
 					{
 						ID:            mockRepo.Products[1].ID.String(),
 						Nome:          mockRepo.Products[1].Nome.String(),
-						URL:           mockRepo.Products[1].URL.String(),
+						URLImagem:     mockRepo.Products[1].URLImagem.String(),
 						Descricao:     mockRepo.Products[1].Descricao.String(),
 						Preco:         mockRepo.Products[1].Preco.Float64(),
 						Classificacao: mockRepo.Products[1].Classificacao.String(),
@@ -73,7 +73,7 @@ func TestExecute(t *testing.T) {
 					{
 						ID:            mockRepo.Products[2].ID.String(),
 						Nome:          mockRepo.Products[2].Nome.String(),
-						URL:           mockRepo.Products[2].URL.String(),
+						URLImagem:     mockRepo.Products[2].URLImagem.String(),
 						Descricao:     mockRepo.Products[2].Descricao.String(),
 						Preco:         mockRepo.Products[2].Preco.Float64(),
 						Classificacao: mockRepo.Products[2].Classificacao.String(),
@@ -117,7 +117,7 @@ func TestExecute(t *testing.T) {
 					{
 						ID:            mockRepo.Products[0].ID.String(),
 						Nome:          mockRepo.Products[0].Nome.String(),
-						URL:           mockRepo.Products[0].URL.String(),
+						URLImagem:     mockRepo.Products[0].URLImagem.String(),
 						Descricao:     mockRepo.Products[0].Descricao.String(),
 						Preco:         mockRepo.Products[0].Preco.Float64(),
 						Classificacao: mockRepo.Products[0].Classificacao.String(),
@@ -126,7 +126,7 @@ func TestExecute(t *testing.T) {
 					{
 						ID:            mockRepo.Products[1].ID.String(),
 						Nome:          mockRepo.Products[1].Nome.String(),
-						URL:           mockRepo.Products[1].URL.String(),
+						URLImagem:     mockRepo.Products[1].URLImagem.String(),
 						Descricao:     mockRepo.Products[1].Descricao.String(),
 						Preco:         mockRepo.Products[1].Preco.Float64(),
 						Classificacao: mockRepo.Products[1].Classificacao.String(),
@@ -135,7 +135,7 @@ func TestExecute(t *testing.T) {
 					{
 						ID:            mockRepo.Products[2].ID.String(),
 						Nome:          mockRepo.Products[2].Nome.String(),
-						URL:           mockRepo.Products[2].URL.String(),
+						URLImagem:     mockRepo.Products[2].URLImagem.String(),
 						Descricao:     mockRepo.Products[2].Descricao.String(),
 						Preco:         mockRepo.Products[2].Preco.Float64(),
 						Classificacao: mockRepo.Products[2].Classificacao.String(),

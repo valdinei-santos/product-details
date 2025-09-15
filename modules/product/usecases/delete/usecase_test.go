@@ -1,11 +1,11 @@
 package delete_test
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/valdinei-santos/product-details/infra/logger"
+	"github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 	"github.com/valdinei-santos/product-details/modules/product/dto"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 	"github.com/valdinei-santos/product-details/modules/product/usecases/delete"
@@ -43,13 +43,13 @@ func TestExecute(t *testing.T) {
 			name: "Deve retornar erro se o repositório falhar",
 			repo: func() *repository.MockProductRepository {
 				r := repository.NewMockProductRepository()
-				r.SetMockError(errors.New("erro de conexão com o banco de dados"))
+				r.SetMockError(localerror.ErrProductConnectionInDatabase)
 				return r
 			}(),
 			logger:       logger.NewMockILogger(),
 			inputID:      validID,
 			expectedResp: nil,
-			expectedErr:  errors.New("erro de conexão com o banco de dados"),
+			expectedErr:  localerror.ErrProductConnectionInDatabase,
 			expectDebug:  true,
 			expectError:  true,
 		},
@@ -59,9 +59,8 @@ func TestExecute(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			uc := delete.NewUseCase(tt.repo, tt.logger)
 
-			resp, err := uc.Execute(tt.inputID)
+			err := uc.Execute(tt.inputID)
 
-			assert.Equal(t, tt.expectedResp, resp)
 			if tt.expectedErr != nil {
 				assert.EqualError(t, err, tt.expectedErr.Error())
 			} else {

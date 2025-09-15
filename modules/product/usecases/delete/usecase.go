@@ -2,7 +2,6 @@ package delete
 
 import (
 	"github.com/valdinei-santos/product-details/infra/logger"
-	"github.com/valdinei-santos/product-details/modules/product/dto"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 )
 
@@ -21,18 +20,14 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 }
 
 // Execute - Executa a lógica para deletar um produto
-func (u *UseCase) Execute(id string) (*dto.OutputDefault, error) {
+func (u *UseCase) Execute(id string) error {
 	u.log.Debug("Entrou delete.Execute")
 
 	err := u.repo.DeleteProduct(id)
 	if err != nil {
 		u.log.Error(err.Error(), "mtd", "u.repo.Delete")
-		return nil, err
+		return err
 	}
 
-	result := &dto.OutputDefault{
-		StatusCode: 1,
-		Message:    "Produto deletado com sucesso",
-	}
-	return result, nil
+	return nil
 }

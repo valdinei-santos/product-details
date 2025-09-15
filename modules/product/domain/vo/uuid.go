@@ -11,6 +11,7 @@ func NewUUID(log logger.ILogger) (ID, error) {
 	uuid, err := uuid.NewRandom()
 	if err != nil {
 		log.Error("Falha ao gerar UUID", err)
+		return ID(uuid), err
 	}
 	return ID(uuid), nil
 }

@@ -1,12 +1,12 @@
 package vo
 
-import "errors"
+import "github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 
 type Preco float64
 
 func NewPreco(valor float64) (Preco, error) {
 	if valor < 0 {
-		return 0, errors.New("o valor do preço não pode ser negativo")
+		return 0, localerror.ErrProductPriceNegative
 	}
 	return Preco(valor), nil
 }

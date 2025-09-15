@@ -11,7 +11,7 @@ import (
 type Produto struct {
 	ID            string  `json:"ID"`
 	Nome          string  `json:"Nome"`
-	URL           string  `json:"URL"`
+	URLImagem     string  `json:"URLImagem"`
 	Descricao     string  `json:"Descricao"`
 	Preco         float64 `json:"Preco"`
 	Classificacao string  `json:"Classificacao"`
@@ -20,7 +20,7 @@ type Produto struct {
 
 // GerarProdutosFake gera uma lista de produtos com dados falsos.
 func GerarProdutosFake(repoProducts repository.IProductRepository, quantidade int) error {
-	fmt.Println("Gerando produtos fake caso tenha menos que 5 produtos...")
+	fmt.Println("Gerando produtos fake caso tenha menos que " + fmt.Sprint(quantidade) + " produtos...")
 
 	count, err := repoProducts.Count()
 	if err != nil {
@@ -29,7 +29,7 @@ func GerarProdutosFake(repoProducts repository.IProductRepository, quantidade in
 	}
 
 	// Só cria produtos fake se não tiver pelo menos 5 produtos
-	if count < 5 {
+	if count < 10 {
 		// Listas de dados pré-definidos
 		nomes := []string{"Smart TV", "Notebook", "Smartphone", "Fone de Ouvido", "Console de Videogame", "Tablet"}
 		descricoes := []string{"Produto de alta qualidade", "Design moderno e elegante", "Com as melhores tecnologias", "Ideal para o dia a dia", "Excelente desempenho"}
@@ -38,13 +38,13 @@ func GerarProdutosFake(repoProducts repository.IProductRepository, quantidade in
 		for i := 0; i < quantidade; i++ {
 			// Escolhe um nome, descrição e classificação aleatórios das listas
 			nome := nomes[rand.Intn(len(nomes))]
-			url := fmt.Sprintf("http://produto.com/imagem%d.jpg", i+1)
+			urlImagem := fmt.Sprintf("http://produto.com/imagem%d.jpg", i+1)
 			descricao := descricoes[rand.Intn(len(descricoes))]
 			classificacao := classificacoes[rand.Intn(len(classificacoes))]
 			preco := float64(rand.Intn(100000)) / 100
 			especificacao := fmt.Sprintf("COD-%d", rand.Intn(9999999))
 
-			p, err := entities.NewProduct(nome, url, descricao, preco, classificacao, especificacao)
+			p, err := entities.NewProduct(nome, urlImagem, descricao, preco, classificacao, especificacao)
 			if err != nil {
 				fmt.Printf("Erro ao criar um novo produto fake: %v", err)
 				return err

@@ -38,7 +38,7 @@ func main() {
 	}
 	fmt.Println("Iniciou Database...")
 
-	err = datafake.GerarProdutosFake(repoProducts, 5)
+	err = datafake.GerarProdutosFake(repoProducts, 10)
 	if err != nil {
 		log.Debug(err.Error())
 		fmt.Printf("Erro ao gerar dados fake: %v", err)

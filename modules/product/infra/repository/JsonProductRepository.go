@@ -2,13 +2,13 @@ package repository
 
 import (
 	"encoding/json"
-	"errors"
-	"fmt"
+
 	"os"
 	"sync"
 
 	"github.com/google/uuid"
 	"github.com/valdinei-santos/product-details/modules/product/domain/entities"
+	"github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 )
 
 // ProductRepo é um repositório para gerenciar produtos
@@ -67,14 +67,14 @@ func (r *ProductRepo) GetProductByID(id string) (*entities.Product, error) {
 	defer r.mutex.Unlock()
 	idUUID, err := uuid.Parse(id)
 	if err != nil {
-		return nil, fmt.Errorf("ID inválido: %w", err)
+		return nil, localerror.ErrProductIDInvalid
 	}
 	for _, product := range r.products {
 		if product.ID == idUUID {
 			return product, nil
 		}
 	}
-	return nil, errors.New("produto não encontrado")
+	return nil, localerror.ErrProductNotFound
 }
 
 // GetManyProductByIDs - busca vários produtos por ID
@@ -85,7 +85,7 @@ func (r *ProductRepo) GetManyProductByIDs(ids []string) ([]*entities.Product, er
 	for _, id := range ids {
 		idUUID, err := uuid.Parse(id)
 		if err != nil {
-			return nil, fmt.Errorf("ID inválido: %w", err)
+			return nil, localerror.ErrProductIDInvalid
 		}
 		for _, product := range r.products {
 			if product.ID == idUUID {
@@ -94,7 +94,7 @@ func (r *ProductRepo) GetManyProductByIDs(ids []string) ([]*entities.Product, er
 		}
 	}
 	if len(products) == 0 {
-		return nil, errors.New("produtos não encontrados")
+		return nil, localerror.ErrProductNotFoundMany
 	}
 	return products, nil
 }
@@ -123,7 +123,7 @@ func (r *ProductRepo) UpdateProduct(id string, p *entities.Product) error {
 	defer r.mutex.Unlock()
 	idUUID, err := uuid.Parse(id)
 	if err != nil {
-		return fmt.Errorf("ID inválido: %w", err)
+		return localerror.ErrProductIDInvalid
 	}
 	for i, product := range r.products {
 		if product.ID == idUUID {
@@ -131,7 +131,7 @@ func (r *ProductRepo) UpdateProduct(id string, p *entities.Product) error {
 			return r.Save()
 		}
 	}
-	return errors.New("produto não encontrado")
+	return localerror.ErrProductNotFound
 }
 
 // DeleteProduct - remove um produto do repositório
@@ -140,7 +140,7 @@ func (r *ProductRepo) DeleteProduct(id string) error {
 	defer r.mutex.Unlock()
 	idUUID, err := uuid.Parse(id)
 	if err != nil {
-		return fmt.Errorf("ID inválido: %w", err)
+		return localerror.ErrProductIDInvalid
 	}
 	for i, product := range r.products {
 		if product.ID == idUUID {
@@ -149,7 +149,7 @@ func (r *ProductRepo) DeleteProduct(id string) error {
 			return r.Save()
 		}
 	}
-	return errors.New("produto não encontrado")
+	return localerror.ErrProductNotFound
 }
 
 func (r *ProductRepo) Count() (int, error) {

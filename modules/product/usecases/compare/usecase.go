@@ -36,7 +36,7 @@ func (u *UseCase) Execute(ids []string) (*dto.ProductsResponse, error) {
 		productsList[i] = dto.Response{
 			ID:            p.ID.String(),
 			Nome:          p.Nome.String(),
-			URL:           p.URL.String(),
+			URLImagem:     p.URLImagem.String(),
 			Descricao:     p.Descricao.String(),
 			Preco:         p.Preco.Float64(),
 			Classificacao: p.Classificacao.String(),

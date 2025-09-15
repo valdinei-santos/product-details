@@ -3,6 +3,7 @@ package create
 import (
 	"github.com/valdinei-santos/product-details/infra/logger"
 	"github.com/valdinei-santos/product-details/modules/product/domain/entities"
+	"github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 	"github.com/valdinei-santos/product-details/modules/product/dto"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 )
@@ -22,11 +23,11 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 }
 
 // Execute - Executa a lógica de criação de um produto
-func (u *UseCase) Execute(in *dto.Request) (*dto.OutputDefault, error) {
+func (u *UseCase) Execute(in *dto.Request) (*dto.Response, error) {
 	u.log.Debug("Entrou create.Execute")
 
 	// Cria o objeto Product a partir do DTO de entrada
-	p, err := entities.NewProduct(in.Nome, in.URL, in.Descricao, in.Preco, in.Classificacao, in.Especificacao)
+	p, err := entities.NewProduct(in.Nome, in.URLImagem, in.Descricao, in.Preco, in.Classificacao, in.Especificacao)
 	if err != nil {
 		u.log.Error(err.Error(), "mtd", "entities.NewProduct")
 		return nil, err
@@ -36,13 +37,20 @@ func (u *UseCase) Execute(in *dto.Request) (*dto.OutputDefault, error) {
 	err = u.repo.AddProduct(p)
 	if err != nil {
 		u.log.Error(err.Error(), "mtd", "u.repo.AddProduct")
-		return nil, err
+		return nil, localerror.ErrProductInternal
 	}
-
-	// Retorna a resposta padrão
-	result := &dto.OutputDefault{
-		StatusCode: 1,
-		Message:    "Produto inserido com sucesso",
+	u.log.Debug("Produto criado com sucesso", "product_id", p.ID)
+	// Retorna o DTO de saída
+	resp := &dto.Response{
+		ID:            p.ID.String(),
+		Nome:          p.Nome.String(),
+		URLImagem:     p.URLImagem.String(),
+		Descricao:     p.Descricao.String(),
+		Preco:         p.Preco.Float64(),
+		Classificacao: p.Classificacao.String(),
+		Especificacao: p.Especificacao.String(),
+		CreatedAt:     p.CreatedAt.String(),
+		UpdatedAt:     p.UpdatedAt.String(),
 	}
-	return result, nil
+	return resp, nil
 }

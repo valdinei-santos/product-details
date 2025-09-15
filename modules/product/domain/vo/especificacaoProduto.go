@@ -1,12 +1,12 @@
 package vo
 
-import "errors"
+import "github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 
 type EspecificacaoProduto string
 
 func NewEspecificacaoProduto(desc string) (EspecificacaoProduto, error) {
 	if len(desc) < 10 || len(desc) > 200 {
-		return "", errors.New("a especificacao deve ter entre 10 e 200 caracteres")
+		return "", localerror.ErrProductSpecificationInvalid
 	}
 	return EspecificacaoProduto(desc), nil
 }

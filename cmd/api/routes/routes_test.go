@@ -37,7 +37,7 @@ func TestInitRoutes(t *testing.T) {
 	}{
 		{"Teste Ping", "GET", "/ping", http.StatusOK},
 		{"Rota GetAllProducts", "GET", "/api/v1/products/", http.StatusOK},
-		{"Rota CreateProduct", "POST", "/api/v1/products/", http.StatusOK},
+		{"Rota CreateProduct", "POST", "/api/v1/products/", http.StatusCreated},
 		{"Rota GetProductByID", "GET", "/api/v1/products/" + validID1, http.StatusOK},
 		{"Rota UpdateProductByID", "PUT", "/api/v1/products/" + validID1, http.StatusOK},
 		{"Rota DeleteProductByID", "DELETE", "/api/v1/products/" + validID1, http.StatusOK},
@@ -55,12 +55,12 @@ func TestInitRoutes(t *testing.T) {
 			if tc.method == "POST" || tc.method == "PUT" {
 				//body = `{"name": "Test Product", "price": 10.0}`
 				body = `{
-					"Nome": "Default Product1", 
-					"URL": "http://empresa.com/imagem1", 
-					"Descricao": "Produto de Teste1", 
-					"Preco": 1.0, 
-					"Classificacao": "Eletronicos", 
-					"Especificacao": "Teste de Especificacao"
+					"nome": "Default Product1", 
+					"url_imagem": "http://empresa.com/imagem1.jpg", 
+					"descricao": "Produto de Teste1", 
+					"preco": 1.0, 
+					"classificacao": "Eletronicos", 
+					"especificacao": "Teste de Especificacao"
 				}`
 			}
 

@@ -1,135 +1,57 @@
-# API product-details
+# API REST product-details
+
+## Design da API
+Esta API é construída com uma arquitetura **RESTful**, usando URLs intuitivas para representar recursos. Ela se baseia nos seguintes princípios:
+
+-   Uso de **verbos HTTP** para descrever as ações sobre os recursos (GET para leitura, POST para criação, PUT para atualização e DELETE para exclusão).
+-   Utilização de **códigos de status HTTP** padrão para indicar o resultado da requisição.
+-   Todas as requisições e respostas usam o formato **JSON**.
+
+### Endpoints
+
+| Verbo   | Rota                                               | Descrição                          |
+| :------ | :------------------------------------------------- | :--------------------------------- |
+| `GET`   | `/api/v1/products?page=1&limit=2`                  | Lista todos os produtos.           |
+| `POST`  | `/api/v1/products`                                 | Cria um novo produto.              |
+| `GET`   | `/api/v1/products{id}`                             | Retorna um produto por ID.         |
+| `PUT`   | `/api/v1/products/{id}`                            | Atualiza um produto por ID.        |
+| `DELETE`| `/api/v1/products/{id}`                            | Deleta um produto por ID.          |
+| `GET   `| `/api/v1/products/compare?ids={id1,id2,id3,...}`   | Deleta um produto por ID.          |
+
+
+### Tratamento de Erros
+
+Respostas de erro seguem o formato JSON e incluem uma mensagem descritiva:
+
+**Exemplo de erro `404 Not Found`:**
+
+```json
+{
+  "status_code": -1,
+  "message": "produto não encontrado"
+}
+
+## Instruções de Configuração
+
+## Decisões Arquiteturais
+
+## Estratégia Técnica
+
+## Como usei IA
+
+
 
 ## Descrição Técnica
 
-A API **product-details** foi criada com o intuito de demonstrarmos uma simples implementação de API Rest usando os conceitos de Arquitetura Limpa e DDD com Golang.
-Para facilitar os testes o repositório usado é um arquivo em JSON, podendo outros tipos de repositórios serem adicionados posteriormente de forma totalmente desacoplada.
-Na inicialização da API 5 produtos são criados por uma função Fake, para facilitar os testes.
+**product-details** é uma API REST em Golang que implementa os princípios de Arquitetura Limpa e DDD para gerenciar informações de produtos.  
+A arquitetura foi projetada para garantir o desacoplamento do repositório de dados. A persistência inicial usa um arquivo JSON, mas a estrutura permite a fácil substituição por outros tipos de bancos de dados (como SQL ou NoSQL) sem afetar o código principal da aplicação. A API é populada com dados simulados para facilitar o uso e testes imediatos.
 
-## Instruções para Rodar o Programa
-
-### Pré-requisitos
-
-- Sistema operacional Linux 
-- Go instalado (versão 1.22 ou superior).
-
-### Passos
-
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/valdinei-santos/product-details.git
-   cd product-details
-   ```
-
-2. Crie o arquivo **.env** com o valor da chave PORT. Você também pode renomear o arquivo .env.exemplo para .env:
-   ```bash
-   echo "PORT=8888" > .env 
-   ```
-   Confira a criação do arquivo:
-   ```bash
-   cat .env
-   ```
-
-3. Compile o programa:
-   ```bash
-   make build
-   ```
-   Saída:
-   ```bash
-   Build completo: Executável da API product-details gerado
-   ```
-
-4. Execute a API rodando o arquivo gerado no Build:
-   ```bash
-   ./product-details
-   ```
-
-   Saída:
-   ```bash
-   Iniciando...
-   Iniciou Log...
-   Iniciou Database...
-   Gerando produtos fake caso tenha menos que 5 produtos...
-   {"time":"2025-09-14T00:54:33.731833513-03:00","level":"INFO","msg":"start product-details","PORT:":"8888"}
-   ```
 
 ## Documentação da API
 
+Esta API utiliza a especificação OpenAPI (anteriormente conhecida como Swagger) para sua documentação interativa. Para acessá-la, basta iniciar a API e navegar até o seguinte endpoint no seu navegador:
+
 http://localhost:8888/swagger/index.html
-
-
-## Instruções para Rodar os Testes
-
-### Passos
-
-1. Navegue até o diretório do projeto. Caso a API esteja rodando você precisa parar ela com CTRL+C.:
-   ```bash
-   cd product-details
-   ```
-
-2. Execute todos os testes:
-   ```bash
-   make test
-   ```
-
-   Exemplo de saída:
-   ```bash
-   go test ./...
-   ?       github.com/valdinei-santos/product-details/cmd/api      [no test files]
-   ok      github.com/valdinei-santos/product-details/cmd/api/routes       (cached)
-   ?       github.com/valdinei-santos/product-details/infra/config [no test files]
-   ?       github.com/valdinei-santos/product-details/infra/database/datafake      [no test files]
-   ?       github.com/valdinei-santos/product-details/infra/logger [no test files]
-   ?       github.com/valdinei-santos/product-details/modules/product      [no test files]
-   ?       github.com/valdinei-santos/product-details/modules/product/domain/entities      [no test files]
-   ?       github.com/valdinei-santos/product-details/modules/product/domain/vo    [no test files]
-   ?       github.com/valdinei-santos/product-details/modules/product/dto  [no test files]
-   ?       github.com/valdinei-santos/product-details/modules/product/infra/controller     [no test files]
-   ?       github.com/valdinei-santos/product-details/modules/product/infra/repository     [no test files]
-   ok      github.com/valdinei-santos/product-details/modules/product/usecases/compare     (cached)
-   ok      github.com/valdinei-santos/product-details/modules/product/usecases/create      (cached)
-   ok      github.com/valdinei-santos/product-details/modules/product/usecases/delete      (cached)
-   ok      github.com/valdinei-santos/product-details/modules/product/usecases/get (cached)
-   ok      github.com/valdinei-santos/product-details/modules/product/usecases/get-all     (cached)
-   ok      github.com/valdinei-santos/product-details/modules/product/usecases/update      (cached)
-   ```
-
-3. Para rodar um arquivo de teste específico, use o comando **go test**, conforme abaixo:
-   ```bash
-   go test caminho/do/arquivo_test.go
-   
-   Exemplo:
-   go test modules/product/usecases/delete/usecase_test.go
-   ```
-
-4. Para rodar um caso de teste específico, use o comando **go test -run "nome-do-caso-de-teste"**, conforme abaixo:
-   ```bash
-   go test -run "Deve retornar sucesso ao excluir um produto" modules/product/usecases/delete/usecase_test.g
-   ```
-   Exemplo:
-   ```bash
-   go test modules/product/usecases/delete/usecase_test.go
-   ```
-
-
-
-
-5. Para ver a cobertura dos testes na aplicação:
-   ```bash
-   make cover
-   ``` 
-
-
-### Estrutura de Testes
-O projeto inclui testes automatizados para os seguintes pacotes:
-
-- **cmd/api/routes**: Faz os testes de integração de todos os endpoints.
-- **modules/product/usecases/compare**: Faz testes de unidade do usecase **compare** 
-- **modules/product/usecases/create**: Faz testes de unidade do usecase **create**
-- **modules/product/usecases/delete**: Faz testes de unidade do usecase **delete**
-- **modules/product/usecases/get**: Faz testes de unidade do usecase **get**
-- **modules/product/usecases/getall**: Faz testes de unidade do usecase **getall**
-- **modules/product/usecases/update**: Faz testes de unidade do usecase **update**
 
 
 ## Detalhes de Implementação

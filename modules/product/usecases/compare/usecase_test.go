@@ -1,12 +1,12 @@
 package compare_test
 
 import (
-	"errors"
 	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/valdinei-santos/product-details/infra/logger"
+	"github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 	"github.com/valdinei-santos/product-details/modules/product/dto"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 	"github.com/valdinei-santos/product-details/modules/product/usecases/compare"
@@ -39,7 +39,7 @@ func TestExecute(t *testing.T) {
 					{
 						ID:            mockRepo.Products[0].ID.String(),
 						Nome:          mockRepo.Products[0].Nome.String(),
-						URL:           mockRepo.Products[0].URL.String(),
+						URLImagem:     mockRepo.Products[0].URLImagem.String(),
 						Descricao:     mockRepo.Products[0].Descricao.String(),
 						Preco:         mockRepo.Products[0].Preco.Float64(),
 						Classificacao: mockRepo.Products[0].Classificacao.String(),
@@ -48,7 +48,7 @@ func TestExecute(t *testing.T) {
 					{
 						ID:            mockRepo.Products[1].ID.String(),
 						Nome:          mockRepo.Products[1].Nome.String(),
-						URL:           mockRepo.Products[1].URL.String(),
+						URLImagem:     mockRepo.Products[1].URLImagem.String(),
 						Descricao:     mockRepo.Products[1].Descricao.String(),
 						Preco:         mockRepo.Products[1].Preco.Float64(),
 						Classificacao: mockRepo.Products[1].Classificacao.String(),
@@ -66,7 +66,7 @@ func TestExecute(t *testing.T) {
 			logger:       logger.NewMockILogger(),
 			inputIDs:     []string{"id-invalido"},
 			expectedResp: nil,
-			expectedErr:  errors.New("ID inválido: invalid UUID length: 11"),
+			expectedErr:  localerror.ErrProductIDInvalid, //errors.New("ID inválido: invalid UUID length: 11"),
 			expectDebug:  true,
 			expectError:  true,
 		},

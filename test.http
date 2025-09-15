@@ -5,12 +5,16 @@
 ### ping da API
 GET {{URL}}/ping
 
-### Get produto por ID
+### Get produto por ID não encontrado
 GET {{APIURL}}/a1b2c3d4-e5f6-1234-5678-90abcdef1234
 Accept: application/json
 
+### Get produto por ID encontrado
+GET {{APIURL}}/0d605862-91e8-11f0-9140-00155d6d572f
+Accept: application/json
+
 ### Get traz produtos para fazer a comparação por list de IDs
-GET {{APIURL}}/compare?ids=034ab7b3-90ea-11f0-95f2-00155d6d5ec0,f81d4fae-7dec-11d0-a765-00a0c91e6bf6,c719ff1a-90d4-11f0-b166-00155d6d5ec0
+GET {{APIURL}}/compare?ids=0d605862-91e8-11f0-9140-00155d6d572f,034aeff8-90ea-11f0-95f2-00155d6d5ec0,034afa35-90ea-11f0-95f2-00155d6d5ec0,034b11f9-90ea-11f0-95f2-00155d6d5ec0
 Accept: application/json
 
 ### Get traz erro porque a lista de IDs é inválida
@@ -31,7 +35,7 @@ Content-Type: application/json
 
 {
     "nome": "produto 3",
-    "url": "http://produto.com/imagem3.jpg",
+    "url_imagem": "http://produto.com/imagem3.jpg",
     "descricao": "Produto 3",
     "preco": 4.90,
     "classificacao": "Eletrônicos",
@@ -44,7 +48,7 @@ Content-Type: application/json
 
 {
     "nome": "produto 2",
-    "url": "http://produto.com/imagem2.jpg",
+    "url_imagem": "http://produto.com/imagem2.jpg",
     "descricao": "Produto 2",
     "preco": 18.80,
     "classificacao": "Eletrônicos",
@@ -55,16 +59,16 @@ Content-Type: application/json
 DELETE {{APIURL}}/a1b2c3d4-e5f6-1234-5678-90abcdef1234
 Content-Type: application/json
 
-### Adicionar um produto
-PUT {{APIURL}}/a1b2c3d4-e5f6-1234-5678-90abcdef1234
+### Alterar um produto
+PUT {{APIURL}}/0621c52e-91f4-11f0-abfa-00155d6d572f
 Content-Type: application/json
 
 {
-    "id": "a1b2c3d4-e5f6-1234-5678-90abcdef1234",
-    "nome": "produto 33",
-    "url": "http://produto.com/imagem33.jpg",
-    "descricao": "Produto 33",
+    "id": "0621c52e-91f4-11f0-abfa-00155d6d572f",
+    "nome": "produto 333",
+    "url_imagem": "http://produto.com/imagem333.jpg",
+    "descricao": "Produto 333",
     "preco": 18.80,
     "classificacao": "eletronicos",
-    "especificacao": "abc3243244"
+    "especificacao": "abc32433244"
 }

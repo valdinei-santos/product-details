@@ -1,12 +1,12 @@
 package vo
 
-import "errors"
+import "github.com/valdinei-santos/product-details/modules/product/domain/localerror"
 
 type DescricaoProduto string
 
 func NewDescricaoProduto(desc string) (DescricaoProduto, error) {
 	if len(desc) < 5 || len(desc) > 100 {
-		return "", errors.New("a descricao deve ter entre 5 e 100 caracteres")
+		return "", localerror.ErrProductDescriptionInvalid
 	}
 	return DescricaoProduto(desc), nil
 }
