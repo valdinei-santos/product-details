@@ -4,7 +4,7 @@ import (
 	"math"
 
 	"github.com/valdinei-santos/product-details/infra/logger"
-	"github.com/valdinei-santos/product-details/modules/product/dto"
+	"github.com/valdinei-santos/product-details/modules/product/infra/dto"
 	"github.com/valdinei-santos/product-details/modules/product/infra/repository"
 )
 

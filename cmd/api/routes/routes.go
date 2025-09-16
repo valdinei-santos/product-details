@@ -35,32 +35,32 @@ func InitRoutes(router *gin.RouterGroup, log logger.ILogger, repoProducts reposi
 	prod := v1.Group("/products")
 
 	prod.GET("/", func(c *gin.Context) {
-		log.Info("### Start endpoint GET /api/v1/products")
+		log.Info("### Start endpoint " + c.Request.Method + " " + c.Request.URL.Path)
 		product.StartGetAll(log, c, repoProducts)
 	})
 
 	prod.POST("/", func(c *gin.Context) {
-		log.Info("### Start endpoint POST /api/v1/products")
+		log.Info("### Start endpoint " + c.Request.Method + " " + c.Request.URL.Path)
 		product.StartCreate(log, c, repoProducts)
 	})
 
 	prod.GET("/:id", func(c *gin.Context) {
-		log.Info("### Start endpoint GET /api/v1/products/:id")
+		log.Info("### Start endpoint " + c.Request.Method + " " + c.Request.URL.Path)
 		product.StartGet(log, c, repoProducts)
 	})
 
 	prod.PUT("/:id", func(c *gin.Context) {
-		log.Info("### Start endpoint PUT /api/v1/products/:id")
+		log.Info("### Start endpoint " + c.Request.Method + " " + c.Request.URL.Path)
 		product.StartUpdate(log, c, repoProducts)
 	})
 
 	prod.DELETE("/:id", func(c *gin.Context) {
-		log.Info("### Start endpoint DELETE /api/v1/products/:id")
+		log.Info("### Start endpoint " + c.Request.Method + " " + c.Request.URL.Path)
 		product.StartDelete(log, c, repoProducts)
 	})
 
 	prod.GET("/compare", func(c *gin.Context) {
-		log.Info("### Start endpoint GET /api/v1/products/compare")
+		log.Info("### Start endpoint " + c.Request.Method + " " + c.Request.URL.Path)
 		product.StartCompare(log, c, repoProducts)
 	})
 

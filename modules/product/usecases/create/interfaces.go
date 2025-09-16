@@ -1,6 +1,6 @@
 package create
 
-import "github.com/valdinei-santos/product-details/modules/product/dto"
+import "github.com/valdinei-santos/product-details/modules/product/infra/dto"
 
 // IUsecase - ...
 type IUsecase interface {

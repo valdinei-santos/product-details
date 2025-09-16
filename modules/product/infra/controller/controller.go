@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/valdinei-santos/product-details/infra/logger"
 	"github.com/valdinei-santos/product-details/modules/product/domain/localerror"
-	"github.com/valdinei-santos/product-details/modules/product/dto"
+	"github.com/valdinei-santos/product-details/modules/product/infra/dto"
 	"github.com/valdinei-santos/product-details/modules/product/usecases/compare"
 	"github.com/valdinei-santos/product-details/modules/product/usecases/create"
 	"github.com/valdinei-santos/product-details/modules/product/usecases/delete"
