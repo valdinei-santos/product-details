@@ -30,7 +30,7 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 // @Param          size query int false "Quantidade de itens na página a ser retornada"
 // @Success        200 {array} dto.ResponseManyPaginated
 // @Failure        500 {string} string "Erro interno do servidor"
-// @Router         /products [get]
+// @Router         / [get]
 // Execute - Executa a lógica para buscar todos os produtos
 func (u *UseCase) Execute(page int, size int) (*dto.ResponseManyPaginated, error) {
 	u.log.Debug("Entrou create.Execute")

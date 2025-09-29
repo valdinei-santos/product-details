@@ -30,7 +30,7 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 // @Param        product body dto.Request true "Dados do produto a ser criado"
 // @Success      201 {object} dto.Response
 // @Failure      400 {object} string "Erro na requisição"
-// @Router       /api/v1/products [post]
+// @Router       / [post]
 // Execute - Executa a lógica de criação de um produto
 func (u *UseCase) Execute(in *dto.Request) (*dto.Response, error) {
 	u.log.Debug("Entrou create.Execute")

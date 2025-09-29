@@ -2,6 +2,9 @@
 package routes
 
 import (
+	"time"
+
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	files "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -13,19 +16,16 @@ import (
 
 func InitRoutes(router *gin.RouterGroup, log logger.ILogger, repoProducts repository.IProductRepository) {
 
-	router.Use(func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, ResponseType, accept, origin, Cache-Control, X-Requested-With")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
-		c.Writer.Header().Set("Content-Type", "application/json")
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://localhost:8888", "http://127.0.0.1:8888"}, // Para liberar o Swagger
+		// OU use AllowAllOrigins: true para permitir TUDO (apenas para DEV/TESTE)
 
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
-			return
-		}
-		c.Next()
-	})
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour, // Limita tempo navegador pode armazenar em cache as informações do preflight
+	}))
+	// ---------------------------
 
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")

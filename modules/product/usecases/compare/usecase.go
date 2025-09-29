@@ -27,7 +27,7 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 // @Param        ids query string true "IDs dos produtos a serem comparados (ex: 0d605862-91e8-11f0-9140-00155d6d572f,034aeff8-90ea-11f0-95f2-00155d6d5ec0,034afa35-90ea-11f0-95f2-00155d6d5ec0,034b11f9-90ea-11f0-95f2-00155d6d5ec0)"
 // @Success      200 {array} dto.ResponseManyPaginated
 // @Failure      400 {object} string "Requisição inválida"
-// @Router       /api/v1/compare [get]
+// @Router       /compare [get]
 // Execute - Executa a lógica de comparação de produtos
 func (u *UseCase) Execute(ids []string) (*dto.ResponseMany, error) {
 	u.log.Debug("Entrou get.Execute")

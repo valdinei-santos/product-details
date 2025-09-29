@@ -20,7 +20,7 @@ import (
 // @version 1.0
 // @description Está API gerencia detalhes de produtos.
 // @host localhost:8888
-// @BasePath /api/v1
+// @BasePath /api/v1/products
 func main() {
 	fmt.Println("Iniciando...")
 	config, err := config.LoadConfig()

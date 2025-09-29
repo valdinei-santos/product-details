@@ -15,120 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/compare": {
-            "get": {
-                "description": "Retorna uma lista de produtos com base nos IDs fornecidos em um formato de lista separada por vírgulas",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "produtos"
-                ],
-                "summary": "Compara múltiplos produtos por uma lista de IDs",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "IDs dos produtos a serem comparados (ex: 0d605862-91e8-11f0-9140-00155d6d572f,034aeff8-90ea-11f0-95f2-00155d6d5ec0,034afa35-90ea-11f0-95f2-00155d6d5ec0,034b11f9-90ea-11f0-95f2-00155d6d5ec0)",
-                        "name": "ids",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/dto.ResponseManyPaginated"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Requisição inválida",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/products": {
-            "post": {
-                "description": "Cria um novo produto com os dados fornecidos",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "produtos"
-                ],
-                "summary": "Cria um novo produto",
-                "parameters": [
-                    {
-                        "description": "Dados do produto a ser criado",
-                        "name": "product",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.Request"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/dto.Response"
-                        }
-                    },
-                    "400": {
-                        "description": "Erro na requisição",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/products/{id}": {
-            "delete": {
-                "description": "Deleta um produto específico com base no ID fornecido",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "produtos"
-                ],
-                "summary": "Deleta um produto pelo ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "ID do produto a ser deletado",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Produto deletado com sucesso\"}",
-                        "schema": {
-                            "$ref": "#/definitions/dto.OutputDefault"
-                        }
-                    },
-                    "404": {
-                        "description": "produto não encontrado",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/products": {
+        "/": {
             "get": {
                 "description": "Retorna uma lista de produtos, paginada",
                 "produces": [
@@ -169,9 +56,85 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "Cria um novo produto com os dados fornecidos",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "produtos"
+                ],
+                "summary": "Cria um novo produto",
+                "parameters": [
+                    {
+                        "description": "Dados do produto a ser criado",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro na requisição",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
         },
-        "/products/{id}": {
+        "/compare": {
+            "get": {
+                "description": "Retorna uma lista de produtos com base nos IDs fornecidos em um formato de lista separada por vírgulas",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "produtos"
+                ],
+                "summary": "Compara múltiplos produtos por uma lista de IDs",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "IDs dos produtos a serem comparados (ex: 0d605862-91e8-11f0-9140-00155d6d572f,034aeff8-90ea-11f0-95f2-00155d6d5ec0,034afa35-90ea-11f0-95f2-00155d6d5ec0,034b11f9-90ea-11f0-95f2-00155d6d5ec0)",
+                        "name": "ids",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.ResponseManyPaginated"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição inválida",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/{id}": {
             "get": {
                 "description": "Retorna um produto específico com base no ID fornecido",
                 "consumes": [
@@ -249,6 +212,39 @@ const docTemplate = `{
                         "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/dto.OutputDefault"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deleta um produto específico com base no ID fornecido",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "produtos"
+                ],
+                "summary": "Deleta um produto pelo ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID do produto a ser deletado",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto deletado com sucesso\"}",
+                        "schema": {
+                            "$ref": "#/definitions/dto.OutputDefault"
+                        }
+                    },
+                    "404": {
+                        "description": "produto não encontrado",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -354,8 +350,8 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8888",
-	BasePath:         "/api/v1",
+	Host:             "192.168.37.143:8888",
+	BasePath:         "/api/v1/products",
 	Schemes:          []string{},
 	Title:            "Product Details API",
 	Description:      "Está API gerencia detalhes de produtos.",

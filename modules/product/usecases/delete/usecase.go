@@ -26,7 +26,7 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 // @Param        id path string true "ID do produto a ser deletado"
 // @Success      200 {object} dto.OutputDefault "Produto deletado com sucesso"}
 // @Failure      404 {string} string "produto não encontrado"
-// @Router       /api/v1/products/{id} [delete]
+// @Router       /{id} [delete]
 // Execute - Executa a lógica para deletar um produto
 func (u *UseCase) Execute(id string) error {
 	u.log.Debug("Entrou delete.Execute")

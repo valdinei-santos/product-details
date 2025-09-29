@@ -28,7 +28,7 @@ func NewUseCase(r repository.IProductRepository, l logger.ILogger) *UseCase {
 // @Param        id path string true "Product ID"
 // @Success      200 {object} dto.Response
 // @Failure      400 {object} dto.OutputDefault
-// @Router       /products/{id} [get]
+// @Router       /{id} [get]
 // Execute - Executa a lógica de busca de um produto
 func (u *UseCase) Execute(id string) (*dto.Response, error) {
 	u.log.Debug("Entrou get.Execute")
