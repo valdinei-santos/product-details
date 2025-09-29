@@ -1,6 +1,6 @@
 # API REST product-details
 
-Esta é uma API REST feita em Golang para gerenciar produtos, permitindo a comparação de múltiplos produtos. Veja mais detalhes no `README.md`
+Esta é uma API REST feita em Golang para gerenciar produtos, permitindo a comparação de múltiplos produtos. Veja mais detalhes no [`README.md`](./README.md)
 
 ## Pré-requisitos
 
@@ -64,7 +64,7 @@ cd product-details
 make test
 ```
 
-3. Para rodar um arquivo de teste específico, use o comando **go test "nome-do-arquivo**, conforme abaixo:
+3. Para rodar um arquivo de teste específico, use o comando **go test "nome-do-arquivo"**, conforme abaixo:
 ```bash
 go test modules/product/usecases/delete/usecase_test.go
 ```

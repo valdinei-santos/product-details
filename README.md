@@ -18,7 +18,7 @@ Esta API é construída com uma arquitetura **RESTful**, usando URLs intuitivas 
 | Verbo   | Rota                                               | Descrição                             |
 | :------ | :------------------------------------------------- | :------------------------------------ |
 | `GET`   | `/api/v1/products?page=1&limit=2`                  | Lista todos os produtos.              |
-| `GET`   | `/api/v1/products{id}`                             | Retorna um produto por ID.            |
+| `GET`   | `/api/v1/products/{id}`                            | Retorna um produto por ID.            |
 | `GET   `| `/api/v1/products/compare?ids={id1,id2,id3,...}`   | Compara uma lista de produtos por ID. |
 | `POST`  | `/api/v1/products`                                 | Cria um novo produto.                 |
 | `PUT`   | `/api/v1/products/{id}`                            | Atualiza um produto por ID.           |
@@ -45,7 +45,7 @@ As seguintes decisões foram tomadas para atingir esses objetivos:
 
 **Golang:** Escolhi Golang por ser a linguagem que tenho mais contato atualmente e por viabilizar a construção de APIs de alto desempenho.
 
-**Framework Web GIN:** O GIN foi usado por ser um framework minimalista e de alta performance para o Go. Ele nos permite criar endpoints de API REST de forma rápida e eficiente, fornecendo funcionalidades essenciais como roteamento e middleware, sem impor complexidade desnecessária à arquitetura.
+**Framework Web GIN:** O GIN foi usado por ser um framework minimalista e de alta performance para Go. Ele nos permite criar endpoints de API REST de forma rápida e eficiente, fornecendo funcionalidades essenciais como roteamento e middleware, sem impor complexidade desnecessária à arquitetura.
 
 **Arquitetura Limpa (Clean Architecture):** Adotei a Arquitetura Limpa para desacoplar a lógica de negócio das camadas de infraestrutura (como banco de dados). Isso garante que o núcleo da aplicação seja independente de detalhes técnicos, tornando o sistema mais resiliente a mudanças e mais fácil de testar, já que a lógica de domínio pode ser testada isoladamente.
 
@@ -119,6 +119,8 @@ A IA foi usada para auxiliar nas seguintes tarefas:
 - Criação da função geradora de produtos Fake.
 - Preenchimento automático de alguns códigos sugeridos pelo Copilot no VSCode.
 
+## Guia de Instalação e Execução
+[**run.md**](./run.md)
 
 ## Autor
 
